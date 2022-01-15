@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-class MainWriter : IWriter
+class MainWriter : IWriter // implements composite design pattern
 {
     private IList<IWriter> _writers;
 

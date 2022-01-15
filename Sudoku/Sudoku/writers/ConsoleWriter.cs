@@ -4,17 +4,16 @@ using System.Text;
 
 class ConsoleWriter : IWriter
 {
+    private IFormatter _formatter;
 
-
-    public ConsoleWriter()
+    public ConsoleWriter(IFormatter formatter)
     {
-        // TODO get Formatter
+        _formatter = formatter;
     }
 
     public void Write(string data)
     {
-        // TODO use formatter in print
-        Console.WriteLine(data);
+        Console.WriteLine(_formatter.Format(data));
     }
 }
 

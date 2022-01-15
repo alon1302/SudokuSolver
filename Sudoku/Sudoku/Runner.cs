@@ -7,7 +7,8 @@ class Runner
     public static void run()
     {
         MainWriter mainWriter = new MainWriter();
-        mainWriter.AddWriter(new ConsoleWriter());
+        ConsoleWriter consoleWriter = new ConsoleWriter(new BoardFormatter());
+        mainWriter.AddWriter(consoleWriter);
 
         Console.WriteLine("how to you want to insert your board?\nF - file \nT -typing");
         char input = Console.ReadKey().KeyChar;
@@ -36,18 +37,16 @@ class Runner
         if (validator.Validate())
         {
             input_board = new SudokuBoard(input_str);
-            Console.WriteLine(new BoardFormatter().Format(input_str));
+            consoleWriter.Write(input_str);
         }
         else
         {
-            Console.WriteLine("Wrong input");
+            mainWriter.Write("Wrong input");
             return;
         }
         Solver solver = new Solver(input_board);
         string solutionStr = solver.GetSolution().getBoardStr();
         mainWriter.Write(solutionStr);
-        Console.WriteLine(new BoardFormatter().Format(solutionStr));
-
     }
 }
 
