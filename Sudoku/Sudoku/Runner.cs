@@ -20,7 +20,8 @@ class Runner
                 break;
             case 'F':
             case 'f':
-                reader = new FileReader("D:\\הורדות\\check_file.txt");
+                string filePath = OpenFileDialogHandle.GetSelectedFilePath();
+                reader = new FileReader(filePath);
                 break;
             default:
                 reader = new ConsoleReader();

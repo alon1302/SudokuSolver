@@ -8,6 +8,7 @@ namespace Sudoku
 {
     class Program
     {
+        [STAThread]
         static void Main(string[] args)
         {
             Runner.run();
