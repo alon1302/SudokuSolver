@@ -13,6 +13,9 @@ class SudokuValidator
     public SudokuValidator()
     {
     }
+
+    public void SetBoardRepresentation(string board) { _boardRepresentation = board; }
+
     private char GetChar(int row, int col)
     {
         return this._boardRepresentation[row * _rowSize + col];
@@ -77,9 +80,9 @@ class SudokuValidator
 
     public bool IsValidPlace(char ch, int row, int col)
     {
-        return IsCharAppearOnceInRow(ch, row) &&
+        return ch == '0' || (IsCharAppearOnceInRow(ch, row) &&
                IsCharAppearOnceInCol(ch, col) &&
-               IsCharAppearOnceInBox(ch, row, col);
+               IsCharAppearOnceInBox(ch, row, col));
     }
 
     private bool ValiadateValuesPlacment(string allValues)

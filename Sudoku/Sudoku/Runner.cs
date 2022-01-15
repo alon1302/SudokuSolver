@@ -11,6 +11,7 @@ class Runner
 
         Console.WriteLine("how to you want to insert your board?\nF - file \nT -typing");
         char input = Console.ReadKey().KeyChar;
+        Console.WriteLine();
         IReader reader;
         switch (input)
         {
@@ -32,7 +33,9 @@ class Runner
         SudokuValidator validator = new SudokuValidator();
         try
         {
-            input_board = new SudokuBoard(reader.Read(), validator);
+            string input_str = reader.Read();
+            input_board = new SudokuBoard(input_str, validator);
+            Console.WriteLine(new BoardFormatter().Format(input_str));
         }
         catch (Exception e)
         {

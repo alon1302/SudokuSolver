@@ -9,16 +9,20 @@ class BoardFormatter : IFormatter
     {
         SudokuBoard printBoard = new SudokuBoard(input, new SudokuValidator());
         string formattedBoard = "";
-        //for (int i = 0; i < printBoard.getSingleRowSize() * CELL_SIZE; i++)
-        //{
-        //    formattedBoard += "━";
-        //}
 
         for (int i = 0; i < printBoard.getSingleRowSize(); i++)
         {
             for (int j = 0; j < printBoard.getSingleRowSize(); j++)
             {
-                formattedBoard += printBoard[i, j] + '\t';
+                if (printBoard[i, j] == '0')
+                {
+                    formattedBoard += ' ';
+                }
+                else
+                {
+                    formattedBoard += printBoard[i, j];
+                }
+                formattedBoard += '\t';
             }
             formattedBoard += '\n';
         }
