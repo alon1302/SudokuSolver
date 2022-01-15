@@ -4,14 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-class SudokuValidator
+class InputValidator
 {
     private const char MIN_VALUE = '0';
     private int _rowSize;
     private string _boardRepresentation;
 
-    public SudokuValidator()
+    public InputValidator(string board)
     {
+        this._boardRepresentation = board;
     }
 
     public void SetBoardRepresentation(string board) { _boardRepresentation = board; }
@@ -85,7 +86,7 @@ class SudokuValidator
                IsCharAppearOnceInBox(ch, row, col));
     }
 
-    private bool ValiadateValuesPlacment(string allValues)
+    private bool ValiadateValuesPlacment()
     {
         for (int i = 0; i < _rowSize; i++)
         {
@@ -101,12 +102,12 @@ class SudokuValidator
         return true;
     }
 
-    private bool ValidateValues(string allValues)
+    private bool ValidateValues()
     {
         char maxValue = (char)(MIN_VALUE + (int)_rowSize);
         for (int i = 0; i < _rowSize * _rowSize; i++)
         {
-            char currentCell = allValues[i];
+            char currentCell = _boardRepresentation[i];
             if (currentCell < MIN_VALUE || currentCell > maxValue)
             {
                 return false;
@@ -115,17 +116,16 @@ class SudokuValidator
         return true;
     }
 
-    public bool Validate(string board_input)
+    public bool Validate()
     {
-        this._boardRepresentation = board_input;
-        double inputSize = board_input.Length;
+        double inputSize = _boardRepresentation.Length;
         double rowSize = Math.Sqrt(inputSize);
         if (Math.Floor(rowSize) != rowSize)
         {
             return false;
         }
         this._rowSize = (int)rowSize;
-        return ValidateValues(board_input) && ValiadateValuesPlacment(board_input);
+        return ValidateValues() && ValiadateValuesPlacment();
     }
 }
 

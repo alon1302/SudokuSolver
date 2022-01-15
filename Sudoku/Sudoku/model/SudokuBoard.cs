@@ -2,34 +2,33 @@
 
 class SudokuBoard
 {
-    private string board_str;
     private int _size;
     private double _rowSize;
-
-    public string BoardStr
-    {
-        get => board_str;
-    }
-
     private char[,] _board;
 
-    public SudokuBoard(string board_str, SudokuValidator sudokuValidator)
+    public SudokuBoard(string board_str)
     {
         _size = board_str.Length;
         _rowSize = Math.Sqrt(_size);
-        if (sudokuValidator.Validate(board_str))
-        {
-            this._board = CreateCharMatrix(board_str);
-        }
-        else
-        {
-            throw new Exception(); // TODO Custom Exception
-        }
+        this._board = CreateCharMatrix(board_str);
     }
 
     public SudokuBoard(SudokuBoard b)
     {
         this._board = (char[,])b._board.Clone();
+    }
+
+    public string getBoardStr()
+    {
+        string board = "";
+        for (int i = 0; i < _rowSize; i++)
+        {
+            for (int j = 0; j < _rowSize; j++)
+            {
+                board += _board[i, j];
+            }
+        }
+        return board;
     }
 
     public char this[int row, int col]
@@ -56,7 +55,6 @@ class SudokuBoard
         }
         return matrix;
     }
-
 
     public override string ToString()
     {

@@ -4,14 +4,13 @@ using System.Text;
 class Solver
 {
     private SudokuBoard _board;
-    private SudokuBoard _solution;
+    private BoardValidator _validator;
     private int _boardSize;
-    private SudokuValidator _validator;
 
-    public Solver(SudokuBoard board , SudokuValidator validator)
+    public Solver(SudokuBoard board)
     {
         this._board = board;
-        this._validator = validator;
+        this._validator = new BoardValidator(ref _board);
         this._boardSize = board.getSingleRowSize();
     }
 
@@ -21,18 +20,18 @@ class Solver
         {
             for (int col = 0; col < _boardSize; col++)
             {
-                if (_solution[row, col] == '0')
+                if (_board[row, col] == '0')
                 {
                     for (char charToTry = '1'; charToTry <= '0' + _boardSize; charToTry++)
                     {
                         if (_validator.IsValidPlace(charToTry, row, col))
                         {
-                            _solution[row, col] = charToTry;
+                            _board[row, col] = charToTry;
                             if (Solve())
                             {
                                 return true;
                             }
-                            _solution[row, col] = '0';
+                            _board[row, col] = '0';
                         }
                     }
                     return false;
@@ -44,15 +43,10 @@ class Solver
 
     public SudokuBoard GetSolution()
     {
-        if (_solution == null)
+        if (!Solve())
         {
-            _solution = new SudokuBoard(_board);
-            if (!Solve())
-            {
-                throw new Exception(); // TODO custom exception - unsolveable board
-            }
-
+            throw new Exception(); // TODO custom exception - unsolveable board
         }
-        return _solution;
+        return _board;
     }
 }

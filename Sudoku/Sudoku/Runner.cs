@@ -30,21 +30,24 @@ class Runner
         }
 
         SudokuBoard input_board;
-        SudokuValidator validator = new SudokuValidator();
-        try
+
+        string input_str = reader.Read();
+        InputValidator validator = new InputValidator(input_str);
+        if (validator.Validate())
         {
-            string input_str = reader.Read();
-            input_board = new SudokuBoard(input_str, validator);
+            input_board = new SudokuBoard(input_str);
             Console.WriteLine(new BoardFormatter().Format(input_str));
         }
-        catch (Exception e)
+        else
         {
-            Console.WriteLine("Wrong input {0}", e.StackTrace);
+            Console.WriteLine("Wrong input");
             return;
         }
+        Solver solver = new Solver(input_board);
+        string solutionStr = solver.GetSolution().getBoardStr();
+        mainWriter.Write(solutionStr);
+        Console.WriteLine(new BoardFormatter().Format(solutionStr));
 
-        Solver solver = new Solver(input_board, validator);
-        mainWriter.Write(solver.GetSolution().BoardStr);
     }
 }
 

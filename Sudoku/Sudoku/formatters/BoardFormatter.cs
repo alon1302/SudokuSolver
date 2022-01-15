@@ -7,7 +7,7 @@ class BoardFormatter : IFormatter
     const int CELL_SIZE = 3;
     public string Format(string input)
     {
-        SudokuBoard printBoard = new SudokuBoard(input, new SudokuValidator());
+        SudokuBoard printBoard = new SudokuBoard(input);
         string formattedBoard = "";
 
         for (int i = 0; i < printBoard.getSingleRowSize(); i++)
