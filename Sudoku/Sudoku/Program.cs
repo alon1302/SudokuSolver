@@ -10,6 +10,7 @@ namespace Sudoku
     {
         static void Main(string[] args)
         {
+            Runner.run();
         }
     }
 }

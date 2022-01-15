@@ -4,6 +4,6 @@ using System.Text;
 
 interface IReader
 {
-    public string Read();
+    string Read();
 }
 

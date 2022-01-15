@@ -4,5 +4,5 @@ using System.Text;
 
 interface IWriter
 {
-    public void Write(string data);
+    void Write(string data);
 }

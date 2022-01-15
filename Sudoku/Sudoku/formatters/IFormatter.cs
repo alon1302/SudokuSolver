@@ -4,6 +4,6 @@ using System.Text;
 
 interface IFormatter
 {
-    public string Format(string input);
+    string Format(string input);
 }
 

@@ -22,24 +22,24 @@ class Runner
             case 'f':
                 reader = new FileReader("D:\\הורדות\\check_file.txt");
                 break;
-            //TODO implement FileReader
             default:
                 reader = new ConsoleReader();
                 break;
         }
 
         SudokuBoard input_board;
+        SudokuValidator validator = new SudokuValidator();
         try
         {
-            input_board = new SudokuBoard(reader.Read());
+            input_board = new SudokuBoard(reader.Read(), validator);
         }
-        catch (Exception)
+        catch (Exception e)
         {
-            Console.WriteLine("Wrong input"); // TODO
+            Console.WriteLine("Wrong input {0}", e.StackTrace);
             return;
         }
 
-        Solver solver = new Solver(input_board);
+        Solver solver = new Solver(input_board, validator);
         mainWriter.Write(solver.GetSolution().BoardStr);
     }
 }

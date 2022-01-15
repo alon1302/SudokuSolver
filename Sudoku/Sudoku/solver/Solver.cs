@@ -6,10 +6,12 @@ class Solver
     private SudokuBoard _board;
     private SudokuBoard _solution;
     private int _boardSize;
+    private SudokuValidator _validator;
 
-    public Solver(SudokuBoard board)
+    public Solver(SudokuBoard board , SudokuValidator validator)
     {
         this._board = board;
+        this._validator = validator;
         this._boardSize = board.getSingleRowSize();
     }
 
@@ -23,7 +25,7 @@ class Solver
                 {
                     for (char charToTry = '1'; charToTry <= '0' + _boardSize; charToTry++)
                     {
-                        if (_board.IsValidPlace(charToTry, row, col))
+                        if (_validator.IsValidPlace(charToTry, row, col))
                         {
                             _solution[row, col] = charToTry;
                             if (Solve())

@@ -43,8 +43,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="formatters\BoardFormatter.cs" />
+    <Compile Include="formatters\IFormatter.cs" />
+    <Compile Include="model\SudokuBoard.cs" />
+    <Compile Include="model\SudokuValidator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="readers\ConsoleReader.cs" />
+    <Compile Include="readers\FileReader.cs" />
+    <Compile Include="readers\IReader.cs" />
+    <Compile Include="readers\OpenFileDialogHandle.cs" />
+    <Compile Include="Runner.cs" />
+    <Compile Include="solver\Solver.cs" />
+    <Compile Include="writers\ConsoleWriter.cs" />
+    <Compile Include="writers\IWriter.cs" />
+    <Compile Include="writers\MainWriter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
