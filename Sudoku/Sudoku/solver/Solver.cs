@@ -10,7 +10,7 @@ class Solver
     public Solver(SudokuBoard board)
     {
         this._board = board;
-        this._boardSize = board.getSize();
+        this._boardSize = board.getSingleRowSize();
     }
 
     private bool Solve()

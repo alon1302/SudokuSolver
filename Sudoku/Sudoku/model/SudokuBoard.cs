@@ -46,7 +46,7 @@ class SudokuBoard
         }
     }
 
-    public int getSize()
+    public int getSingleRowSize()
     {
         return _board.GetLength(0);
     }
@@ -59,7 +59,7 @@ class SudokuBoard
         {
             for (int j = 0; j < _size; j++)
             {
-                // TODO
+                matrix[i, j] = boardStr[i * _size + j];
             }
         }
         return matrix;
