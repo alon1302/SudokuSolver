@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.IO;
 
 class Runner
 {
@@ -47,6 +46,16 @@ class Runner
         Solver solver = new Solver(input_board);
         string solutionStr = solver.GetSolution().getBoardStr();
         mainWriter.Write(solutionStr);
+    }
+
+    private static string CreateResultFilePath(string filePath)
+    {
+        DirectoryInfo parentPath = Directory.GetParent(filePath);
+        string newPath = parentPath.FullName;
+        string fileName = Path.GetFileNameWithoutExtension(filePath);
+        fileName += "-result.txt";
+        newPath += "\\" + fileName;
+        return newPath;
     }
 }
 

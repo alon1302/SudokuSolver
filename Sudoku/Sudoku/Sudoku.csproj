@@ -58,6 +58,7 @@
     <Compile Include="Runner.cs" />
     <Compile Include="solver\Solver.cs" />
     <Compile Include="writers\ConsoleWriter.cs" />
+    <Compile Include="writers\FileWriter.cs" />
     <Compile Include="writers\IWriter.cs" />
     <Compile Include="writers\MainWriter.cs" />
   </ItemGroup>
