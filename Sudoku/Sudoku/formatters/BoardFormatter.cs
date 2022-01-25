@@ -4,7 +4,6 @@ using System.Text;
 
 class BoardFormatter : IFormatter
 {
-    const int CELL_SIZE = 3;
     private int _rowSize;
 
     public string Format(string input)
@@ -13,18 +12,19 @@ class BoardFormatter : IFormatter
         _rowSize = printBoard.getSingleRowSize();
         string formattedBoard = "";
 
-        for (int i = 0; i < _rowSize * CELL_SIZE; i++)
+        for (int i = 0; i < _rowSize; i++)
         {
-            formattedBoard += '_';
+            formattedBoard += " _____";
         }
         formattedBoard += '\n';
 
         for (int i = 0; i < _rowSize; i++)
         {
-            formattedBoard += GetRowOfVerticalLines();
+            formattedBoard += GetRowOfCellsTop();
+            formattedBoard += '|';
             for (int j = 0; j < _rowSize; j++)
             {
-                formattedBoard += ' ';
+                formattedBoard += "  ";
                 if (printBoard[i, j] == '0')
                 {
                     formattedBoard += ' ';
@@ -33,11 +33,32 @@ class BoardFormatter : IFormatter
                 {
                     formattedBoard += printBoard[i, j];
                 }
-                formattedBoard += '\t';
+                formattedBoard += "  |";
             }
-            formattedBoard += '\n';
+            formattedBoard += GetRowOfCellsBottom();
         }
-
         return formattedBoard;
+    }
+
+    private string GetRowOfCellsTop()
+    {
+        string row = "|";
+        for (int i = 0; i < _rowSize; i++)
+        {
+            row += "     |";
+        }
+        row += '\n';
+        return row;
+    }
+
+    private string GetRowOfCellsBottom()
+    {
+        string row = "\n|";
+        for (int i = 0; i < _rowSize; i++)
+        {
+            row += "_____|";
+        }
+        row += '\n';
+        return row;
     }
 }
