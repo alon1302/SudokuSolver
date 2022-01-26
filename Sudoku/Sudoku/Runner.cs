@@ -31,7 +31,6 @@ class Runner
         }
 
         SudokuBoard input_board;
-
         string input_str = reader.Read();
         InputValidator validator = new InputValidator(input_str);
         if (validator.Validate())
