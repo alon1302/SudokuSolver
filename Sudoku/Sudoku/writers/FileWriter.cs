@@ -5,15 +5,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sudoku.writers
+class FileWriter : IWriter
 {
-    class FileWriter : IWriter
-    {
-        private string filePath;
+    private string _filePath;
 
-        public void Write(string data)
-        {
-            File.WriteAllText(filePath, data);
-        }
+    public FileWriter(string filePath)
+    {
+        this._filePath = filePath;
+    }
+
+    public void Write(string data)
+    {
+        File.WriteAllText(_filePath, data);
     }
 }
+

@@ -23,6 +23,7 @@ class Runner
             case 'f':
                 string filePath = OpenFileDialogHandle.GetSelectedFilePath();
                 reader = new FileReader(filePath);
+                mainWriter.AddWriter(new FileWriter(CreateResultFilePath(filePath)));
                 break;
             default:
                 reader = new ConsoleReader();
@@ -52,9 +53,9 @@ class Runner
     {
         DirectoryInfo parentPath = Directory.GetParent(filePath);
         string newPath = parentPath.FullName;
-        string fileName = Path.GetFileNameWithoutExtension(filePath);
-        fileName += "-result.txt";
-        newPath += "\\" + fileName;
+        string newFileName = Path.GetFileNameWithoutExtension(filePath);
+        newFileName += "-result.txt";
+        newPath = Path.Combine(newPath, newFileName);
         return newPath;
     }
 }

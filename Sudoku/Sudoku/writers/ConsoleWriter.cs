@@ -13,14 +13,7 @@ class ConsoleWriter : IWriter
 
     public void Write(string data)
     {
-        if (data.Equals("Wrong input"))
-        {
-            Console.WriteLine(data);
-        }
-        else
-        {
-            Console.WriteLine(_formatter.Format(data));
-        }
+        Console.WriteLine(_formatter.Format(data));
     }
 }
 
