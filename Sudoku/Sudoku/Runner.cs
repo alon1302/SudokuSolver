@@ -44,7 +44,8 @@ class Runner
             return;
         }
         Solver solver = new Solver(input_board);
-        string solutionStr = solver.GetSolution().getBoardStr();
+        SudokuBoard solved = solver.GetSolution();
+        string solutionStr = solved.getBoardStr();
         mainWriter.Write(solutionStr);
     }
 
