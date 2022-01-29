@@ -17,7 +17,7 @@ class FileReader : IReader
     {
         if (!File.Exists(_filePath))
         {
-            throw new Exception(); // TODO custom exception
+            throw new FileNotFoundException("Can't found file"); // TODO custom exception
         }
         return File.ReadAllText(_filePath);
     }

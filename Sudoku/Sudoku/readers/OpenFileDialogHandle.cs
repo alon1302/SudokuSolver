@@ -13,7 +13,7 @@ class OpenFileDialogHandle
         {
             Multiselect = false,
             Title = "Open Text Document",
-            Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*"
+            Filter = "Text files (*.txt)|*.txt"
         };
         using (dialog)
         {
@@ -22,7 +22,7 @@ class OpenFileDialogHandle
                 return dialog.FileName;
             }
         }
-        return "";
+        return null;
     }
 }
 

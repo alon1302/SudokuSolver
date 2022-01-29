@@ -7,6 +7,7 @@ class Runner
     {
         MainWriter mainWriter = new MainWriter();
         ConsoleWriter consoleWriter = new ConsoleWriter(new BoardFormatter());
+        ErrorWriter errorWriter = new ErrorWriter();
         mainWriter.AddWriter(consoleWriter);
 
         Console.WriteLine("how to you want to insert your board?\nF - file \nT -typing");
@@ -22,6 +23,11 @@ class Runner
             case 'F':
             case 'f':
                 string filePath = OpenFileDialogHandle.GetSelectedFilePath();
+                if (filePath == null)
+                {
+                    errorWriter.Write("Failed to open file");
+                    return;
+                }
                 reader = new FileReader(filePath);
                 mainWriter.AddWriter(new FileWriter(CreateResultFilePath(filePath)));
                 break;
@@ -31,7 +37,17 @@ class Runner
         }
 
         SudokuBoard input_board;
-        string input_str = reader.Read();
+        string input_str = null;
+        try
+        {
+            input_str = reader.Read();
+        }
+        catch (FileNotFoundException e)
+        {
+            errorWriter.Write(e.Message);
+            return;
+        }
+
         InputValidator validator = new InputValidator(input_str);
         if (validator.Validate())
         {
@@ -40,7 +56,7 @@ class Runner
         }
         else
         {
-            mainWriter.Write("Wrong input");
+            errorWriter.Write("wrong input");
             return;
         }
         Solver solver = new Solver(input_board);
