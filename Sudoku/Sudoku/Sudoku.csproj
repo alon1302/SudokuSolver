@@ -47,6 +47,8 @@
     <Compile Include="formatters\BoardFormatter.cs" />
     <Compile Include="formatters\IFormatter.cs" />
     <Compile Include="model\SudokuBoard.cs" />
+    <Compile Include="model\SudokuBoard2.cs" />
+    <Compile Include="model\SudokuCell.cs" />
     <Compile Include="Validators\BoardValidator.cs" />
     <Compile Include="Validators\InputValidator.cs" />
     <Compile Include="Program.cs" />
