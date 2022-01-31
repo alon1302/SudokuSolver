@@ -90,6 +90,13 @@ class SudokuBoard2
         }
     }
 
+    public void FixOption(char ch, int row, int col)
+    {
+        RemoveOptionFromRow(ch, row);
+        RemoveOptionFromColumn(ch, col);
+        RemoveOptionFromBox(ch, row, col);
+    }
+
     public void FixAllOptions()
     {
         for (int row = 0; row < _rowSize; row++)
@@ -99,9 +106,7 @@ class SudokuBoard2
                 SudokuCell current = _board[row, col];
                 if (current.isSolved())
                 {
-                    RemoveOptionFromRow(current.Value, row);
-                    RemoveOptionFromColumn(current.Value, col);
-                    RemoveOptionFromBox(current.Value, row, col);
+                    FixOption(current.Value, row, col);
                 }
             }
         }
