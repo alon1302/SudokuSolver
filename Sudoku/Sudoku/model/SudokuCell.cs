@@ -12,11 +12,15 @@ class SudokuCell
     public SudokuCell(char value, int boardSize)
     {
         _value = value;
-        for (char ch = '1'; ch <= '0' + boardSize; ch++)
+        if (_value == '0')
         {
-            if (ch != value)
+            _options = new HashSet<char>();
+            for (char ch = '1'; ch <= '0' + boardSize; ch++)
             {
-                _options.Add(ch);
+                if (ch != value)
+                {
+                    _options.Add(ch);
+                }
             }
         }
     }
@@ -24,11 +28,38 @@ class SudokuCell
     public char Value
     {
         get { return _value; }
+        set { _value = value; }
+    }
+
+    public int NumOfOptions
+    {
+        get {return _options.Count;}
+    }
+
+    public HashSet<char> GetOptions()
+    {
+        return _options;
     }
 
     public void RemoveOption(char ch)
     {
         _options.Remove(ch);
+    }
+
+    public void SetValue(char ch)
+    {
+        _value = ch;
+        _options = null;
+    }
+
+    public char GetOption()
+    {
+        char ch = '0';
+        foreach (char item in _options)
+        {
+            ch = item;
+        }
+        return ch;
     }
 
     public bool isSolved()

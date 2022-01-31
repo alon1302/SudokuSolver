@@ -19,10 +19,11 @@ class SudokuBoard2
         {
             for (int j = 0; j < _rowSize; j++)
             {
-                char currValue = board_str[i * _size + j];
+                char currValue = board_str[i * _rowSize + j];
                 _board[i, j] = new SudokuCell(currValue, _rowSize);
             }
         }
+        FixAllOptions();
     }
 
     public SudokuCell this[int row, int col]
@@ -90,7 +91,7 @@ class SudokuBoard2
         }
     }
 
-    public void FixOption(char ch, int row, int col)
+    public void RemoveOption(char ch, int row, int col)
     {
         RemoveOptionFromRow(ch, row);
         RemoveOptionFromColumn(ch, col);
@@ -106,7 +107,7 @@ class SudokuBoard2
                 SudokuCell current = _board[row, col];
                 if (current.isSolved())
                 {
-                    FixOption(current.Value, row, col);
+                    RemoveOption(current.Value, row, col);
                 }
             }
         }

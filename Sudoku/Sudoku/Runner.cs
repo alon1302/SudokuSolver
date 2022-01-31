@@ -36,7 +36,7 @@ class Runner
                 break;
         }
 
-        SudokuBoard input_board;
+        SudokuBoard2 input_board;
         string input_str = null;
         try
         {
@@ -51,7 +51,7 @@ class Runner
         InputValidator validator = new InputValidator(input_str);
         if (validator.Validate())
         {
-            input_board = new SudokuBoard(input_str);
+            input_board = new SudokuBoard2(input_str);
             consoleWriter.Write(input_str);
         }
         else
@@ -59,8 +59,8 @@ class Runner
             errorWriter.Write("wrong input");
             return;
         }
-        Solver solver = new Solver(input_board);
-        SudokuBoard solved = solver.GetSolution();
+        NewSolver solver = new NewSolver(input_board);
+        SudokuBoard2 solved = solver.GetSolution();
         string solutionStr = solved.getBoardStr();
         mainWriter.Write(solutionStr);
     }
