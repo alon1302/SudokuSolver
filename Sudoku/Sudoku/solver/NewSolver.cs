@@ -19,6 +19,13 @@ class NewSolver
 
     private bool Solve()
     {
+        SolveByStrategies();
+        BacktrackingStrategy backtracking = new BacktrackingStrategy(ref _board);
+        return backtracking.Solve();
+    }
+
+    public void SolveByStrategies()
+    {
         List<bool> solves;
         do
         {
@@ -28,8 +35,6 @@ class NewSolver
                 solves.Add(strategy.Solve());
             }
         } while (solves.Contains(true));
-        BacktrackingStrategy backtracking = new BacktrackingStrategy(ref _board);
-        return backtracking.Solve();
     }
 
     public SudokuBoard2 GetSolution()
