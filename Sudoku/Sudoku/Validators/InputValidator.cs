@@ -91,15 +91,15 @@ class InputValidator : Ivalidator
                 }
                 if (!IsCharAppearOnceInRow(current, row))
                 {
-                    message = "the char " + current + " is appear more than once in a single row";
+                    message = "the char " + current + " is appear more than once in a single row\n";
                 }
                 if (!IsCharAppearOnceInCol(current, col))
                 {
-                    message = "the char " + current + " is appear more than once in a single column " + (col + 1);
+                    message = "the char " + current + " is appear more than once in a single column " + (col + 1) + "\n";
                 }
                 if (!IsCharAppearOnceInBox(current, row, col))
                 {
-                    message = "the char " + current + " is appear more than once in a single box";
+                    message = "the char " + current + " is appear more than once in a single box\n";
                 }
                 if (message != "")
                 {
@@ -118,7 +118,7 @@ class InputValidator : Ivalidator
             char currentCell = _boardRepresentation[i];
             if (currentCell < MIN_VALUE || currentCell > maxValue)
             {
-                throw new InvalidBoardException("the char " + currentCell + "can't be part of this size of sudoku board");
+                throw new InvalidCharacterException("the char " + currentCell + "can't be part of this size of sudoku board\n");
             }
         }
         return true;
@@ -130,7 +130,7 @@ class InputValidator : Ivalidator
         double rowSize = Math.Sqrt(inputSize);
         if (Math.Floor(rowSize) != rowSize)
         {
-            throw new InvalidBoardException("invalid board size");
+            throw new InvalidBoardSizeException("invalid board size\n");
         }
         this._rowSize = (int)rowSize;
         ValidateValues();

@@ -85,10 +85,10 @@ class BoardValidator : Ivalidator
                     {
                         return false;
                     }
-                    if (!IsValidCharInPlace(current.Value, row, col))
-                    {
-                        return false;
-                    }
+                }
+                else if (!IsValidCharInPlace(current.Value, row, col))
+                {
+                    return false;
                 }
             }
         }

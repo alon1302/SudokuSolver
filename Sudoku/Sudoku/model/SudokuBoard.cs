@@ -41,6 +41,21 @@ class SudokuBoard : ICloneable
         get { return _rowSize; }
     }
 
+    public bool isSolved()
+    {
+        for (int i = 0; i < _rowSize; i++)
+        {
+            for (int j = 0; j < _rowSize; j++)
+            {
+                if (!_board[i,j].IsSolved())
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
     public string getBoardStr()
     {
         string board = "";

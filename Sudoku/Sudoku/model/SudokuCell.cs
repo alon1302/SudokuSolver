@@ -12,9 +12,9 @@ class SudokuCell : ICloneable
     public SudokuCell(char value, int boardSize)
     {
         _value = value;
+        _options = new HashSet<char>();
         if (_value == '0')
         {
-            _options = new HashSet<char>();
             for (char ch = '1'; ch <= '0' + boardSize; ch++)
             {
                 if (ch != value)
@@ -54,7 +54,7 @@ class SudokuCell : ICloneable
     public void SetValue(char ch)
     {
         _value = ch;
-        _options = null;
+        //_options = null;
     }
 
     public char GetOption()

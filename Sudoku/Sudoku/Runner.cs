@@ -47,21 +47,27 @@ class Runner
             errorWriter.Write(e.Message);
             return;
         }
-
         InputValidator validator = new InputValidator(input_str);
         try
         {
             validator.Validate();
         }
-        catch (InvalidBoardException e)
+        catch (Exception e)
         {
-            errorWriter.Write(e.Message);
+            if (e is InvalidBoardSizeException || e is InvalidCharacterException)
+            {
+                errorWriter.Write(e.Message);
+            }
+            else if (e is InvalidBoardException)
+            {
+                consoleWriter.Write(input_str);
+                errorWriter.Write(e.Message);
+            }
             return;
         }
-
-        input_board = new SudokuBoard(input_str);
         consoleWriter.Write(input_str);
-        NewSolver solver = new NewSolver(input_board);
+        input_board = new SudokuBoard(input_str);
+        Solver solver = new Solver(input_board);
         SudokuBoard solved = solver.GetSolution();
         string solutionStr = solved.getBoardStr();
         mainWriter.Write(solutionStr);
