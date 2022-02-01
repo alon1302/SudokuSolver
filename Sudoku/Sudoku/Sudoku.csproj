@@ -47,7 +47,6 @@
     <Compile Include="exceptions\InvalidBoardException.cs" />
     <Compile Include="formatters\BoardFormatter.cs" />
     <Compile Include="formatters\IFormatter.cs" />
-    <Compile Include="model\OldBoard.cs" />
     <Compile Include="model\SudokuBoard.cs" />
     <Compile Include="model\SudokuCell.cs" />
     <Compile Include="solver\BacktrackingStrategy.cs" />
@@ -56,7 +55,6 @@
     <Compile Include="solver\NakedSingleStrategy.cs" />
     <Compile Include="solver\NewSolver.cs" />
     <Compile Include="Validators\Ivalidator.cs" />
-    <Compile Include="Validators\OldValidator.cs" />
     <Compile Include="Validators\BoardValidator.cs" />
     <Compile Include="Validators\InputValidator.cs" />
     <Compile Include="Program.cs" />
@@ -66,7 +64,6 @@
     <Compile Include="readers\IReader.cs" />
     <Compile Include="readers\OpenFileDialogHandle.cs" />
     <Compile Include="Runner.cs" />
-    <Compile Include="solver\OldSolver.cs" />
     <Compile Include="writers\ConsoleWriter.cs" />
     <Compile Include="writers\ErrorWriter.cs" />
     <Compile Include="writers\FileWriter.cs" />
