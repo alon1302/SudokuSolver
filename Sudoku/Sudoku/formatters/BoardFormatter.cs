@@ -8,7 +8,7 @@ class BoardFormatter : IFormatter
 
     public string Format(string input)
     {
-        SudokuBoard printBoard = new SudokuBoard(input);
+        OldBoard printBoard = new OldBoard(input);
         _rowSize = printBoard.getSingleRowSize();
         string formattedBoard = "";
 

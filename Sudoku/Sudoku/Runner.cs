@@ -36,7 +36,7 @@ class Runner
                 break;
         }
 
-        SudokuBoard2 input_board;
+        SudokuBoard input_board;
         string input_str = null;
         try
         {
@@ -49,18 +49,20 @@ class Runner
         }
 
         InputValidator validator = new InputValidator(input_str);
-        if (validator.Validate())
+        try
         {
-            input_board = new SudokuBoard2(input_str);
-            consoleWriter.Write(input_str);
+            validator.Validate();
         }
-        else
+        catch (InvalidBoardException e)
         {
-            errorWriter.Write("wrong input");
+            errorWriter.Write(e.Message);
             return;
         }
+
+        input_board = new SudokuBoard(input_str);
+        consoleWriter.Write(input_str);
         NewSolver solver = new NewSolver(input_board);
-        SudokuBoard2 solved = solver.GetSolution();
+        SudokuBoard solved = solver.GetSolution();
         string solutionStr = solved.getBoardStr();
         mainWriter.Write(solutionStr);
     }

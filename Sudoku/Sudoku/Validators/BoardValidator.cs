@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-class BoardValidator
+class BoardValidator : Ivalidator
 {
-
     SudokuBoard _board;
 
     public BoardValidator(ref SudokuBoard board)
@@ -14,50 +9,101 @@ class BoardValidator
         _board = board;
     }
 
-    public bool isExistInRow(char ch, int row)
+    public bool IsCharAppearOnceInRow(char ch, int row)
     {
-        for (int col = 0; col < _board.getSingleRowSize(); col++)
+        int count = 0;
+        for (int col = 0; col < _board.SingleRowSize; col++)
         {
-            if (ch == _board[row, col])
+            if (ch == _board[row,col].Value)
             {
-                return true;
+                count++;
+                if (count > 1)
+                {
+                    return false;
+                }
             }
         }
-        return false;
+        return count == 1;
     }
 
-    public bool isExistInCol(char ch, int col)
+    public bool IsCharAppearOnceInCol(char ch, int col)
     {
-        for (int row = 0; row < _board.getSingleRowSize(); row++)
+        int count = 0;
+        for (int row = 0; row < _board.SingleRowSize; row++)
         {
-            if (ch == _board[row, col])
+            if (ch == _board[row, col].Value)
             {
-                return true;
+                count++;
+                if (count > 1)
+                {
+                    return false;
+                }
             }
         }
-        return false;
+        return count == 1;
     }
 
-    public bool isExistInBox(char ch, int row, int col)
+    public bool IsCharAppearOnceInBox(char ch, int row, int col)
     {
-        int boxSize = (int)Math.Sqrt(_board.getSingleRowSize());
+        int boxSize = (int)Math.Sqrt(_board.SingleRowSize);
         int boxRow = row - (row % boxSize);
         int boxCol = col - (col % boxSize);
+        int count = 0;
         for (int i = boxRow; i < boxRow + boxSize; i++)
         {
             for (int j = boxCol; j < boxCol + boxSize; j++)
             {
-                if (ch == _board[i, j])
+                if (ch == _board[i,j].Value)
                 {
-                    return true;
+                    count++;
+                    if (count > 1)
+                    {
+                        return false;
+                    }
                 }
             }
         }
-        return false;
+        return count == 1;
+    }
+
+    private bool IsValidCharInPlace(char ch, int row, int col)
+    {
+        return IsCharAppearOnceInRow(ch, row) && IsCharAppearOnceInCol(ch, col) &&
+               IsCharAppearOnceInBox(ch, row, col);
+    }
+
+    public bool Validate()
+    {
+        for (int row = 0; row < _board.SingleRowSize; row++)
+        {
+            for (int col = 0; col < _board.SingleRowSize; col++)
+            {
+                SudokuCell current = _board[row, col];
+                if (!current.IsSolved())
+                {
+                    if (current.NumOfOptions == 0)
+                    {
+                        return false;
+                    }
+                    if (!IsValidCharInPlace(current.Value, row, col))
+                    {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
     }
 
     public bool IsValidPlace(char ch, int row, int col)
     {
-        return !isExistInRow(ch, row) && !isExistInCol(ch, col) && !isExistInBox(ch, row, col);
+        _board[row, col].Value = ch;
+        if (IsValidCharInPlace(ch, row, col))
+        {
+            return true;
+        }
+        _board[row, col].Value = '0';
+        return false;
     }
 }
+

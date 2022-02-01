@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-class Solver
+class OldSolver
 {
-    private SudokuBoard _board;
-    private BoardValidator _validator;
+    private OldBoard _board;
+    private OldValidator _validator;
     private int _boardSize;
 
-    public Solver(SudokuBoard board)
+    public OldSolver(OldBoard board)
     {
         this._board = board;
-        this._validator = new BoardValidator(ref _board);
+        this._validator = new OldValidator(ref _board);
         this._boardSize = board.getSingleRowSize();
     }
 
@@ -41,7 +41,7 @@ class Solver
         return true;
     }
 
-    public SudokuBoard GetSolution()
+    public OldBoard GetSolution()
     {
         if (!Solve())
         {

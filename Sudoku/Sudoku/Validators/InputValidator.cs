@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-class InputValidator
+class InputValidator : Ivalidator
 {
     private const char MIN_VALUE = '0';
     private int _rowSize;
@@ -14,8 +14,6 @@ class InputValidator
     {
         this._boardRepresentation = board;
     }
-
-    public void SetBoardRepresentation(string board) { _boardRepresentation = board; }
 
     private char GetChar(int row, int col)
     {
@@ -79,23 +77,33 @@ class InputValidator
         return count == 1;
     }
 
-    public bool IsValidPlace(char ch, int row, int col)
-    {
-        return ch == '0' || (IsCharAppearOnceInRow(ch, row) &&
-               IsCharAppearOnceInCol(ch, col) &&
-               IsCharAppearOnceInBox(ch, row, col));
-    }
-
     private bool ValiadateValuesPlacment()
     {
-        for (int i = 0; i < _rowSize; i++)
+        for (int row = 0; row < _rowSize; row++)
         {
-            for (int j = 0; j < _rowSize; j++)
+            for (int col = 0; col < _rowSize; col++)
             {
-                bool isCurrentPointValid = IsValidPlace(GetChar(i, j), i, j);
-                if (!isCurrentPointValid)
+                string message = "";
+                char current = GetChar(row, col);
+                if (current == '0')
                 {
-                    return false;
+                    continue;
+                }
+                if (!IsCharAppearOnceInRow(current, row))
+                {
+                    message = "the char " + current + " is appear more than once in a single row";
+                }
+                if (!IsCharAppearOnceInCol(current, col))
+                {
+                    message = "the char " + current + " is appear more than once in a single column " + (col + 1);
+                }
+                if (!IsCharAppearOnceInBox(current, row, col))
+                {
+                    message = "the char " + current + " is appear more than once in a single box";
+                }
+                if (message != "")
+                {
+                    throw new InvalidBoardException(message);
                 }
             }
         }
@@ -110,7 +118,7 @@ class InputValidator
             char currentCell = _boardRepresentation[i];
             if (currentCell < MIN_VALUE || currentCell > maxValue)
             {
-                return false;
+                throw new InvalidBoardException("the char " + currentCell + "can't be part of this size of sudoku board");
             }
         }
         return true;
@@ -122,10 +130,13 @@ class InputValidator
         double rowSize = Math.Sqrt(inputSize);
         if (Math.Floor(rowSize) != rowSize)
         {
-            return false;
+            throw new InvalidBoardException("invalid board size");
         }
         this._rowSize = (int)rowSize;
-        return ValidateValues() && ValiadateValuesPlacment();
+        ValidateValues();
+        ValiadateValuesPlacment();
+        return true;
     }
+
 }
 

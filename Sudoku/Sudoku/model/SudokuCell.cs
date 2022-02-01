@@ -67,7 +67,7 @@ class SudokuCell : ICloneable
         return ch;
     }
 
-    public bool isSolved()
+    public bool IsSolved()
     {
         return _value != '0';
     }

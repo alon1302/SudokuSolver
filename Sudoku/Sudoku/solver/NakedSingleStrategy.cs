@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 class NakedSingleStrategy : IStrategy
 {
-    private SudokuBoard2 _board;
+    private SudokuBoard _board;
 
-    public NakedSingleStrategy(ref SudokuBoard2 board)
+    public NakedSingleStrategy(ref SudokuBoard board)
     {
         this._board = board;
     }
@@ -21,7 +21,7 @@ class NakedSingleStrategy : IStrategy
             for (int j = 0; j < _board.SingleRowSize; j++)
             {
                 SudokuCell current = _board[i, j];
-                if (!current.isSolved())
+                if (!current.IsSolved())
                 {
                     if (current.NumOfOptions == 0)
                     {

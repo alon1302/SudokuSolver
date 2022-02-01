@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 class HiddenSingleStrategy : IStrategy
 {
-    private SudokuBoard2 _board;
+    private SudokuBoard _board;
     private ConsoleWriter c = new ConsoleWriter(new BoardFormatter());
-    public HiddenSingleStrategy(ref SudokuBoard2 board)
+    public HiddenSingleStrategy(ref SudokuBoard board)
     {
         this._board = board;
     }
@@ -20,7 +20,7 @@ class HiddenSingleStrategy : IStrategy
             for (int j = 0; j < _board.SingleRowSize; j++)
             {
                 SudokuCell current = _board[i, j];
-                if (!current.isSolved())
+                if (!current.IsSolved())
                 {
                     if (current.NumOfOptions == 0)
                     {
@@ -57,7 +57,7 @@ class HiddenSingleStrategy : IStrategy
         for (int col = 0; col < _board.SingleRowSize; col++)
         {
             SudokuCell current = _board[row, col];
-            if (!current.isSolved() && current.GetOptions().Contains(ch))
+            if (!current.IsSolved() && current.GetOptions().Contains(ch))
             {
                 count++;
                 if (count > 1)
@@ -74,7 +74,7 @@ class HiddenSingleStrategy : IStrategy
         for (int row = 0; row < _board.SingleRowSize; row++)
         {
             SudokuCell current = _board[row, col];
-            if (!current.isSolved() && current.GetOptions().Contains(ch))
+            if (!current.IsSolved() && current.GetOptions().Contains(ch))
             {
                 count++;
                 if (count > 1)
@@ -96,7 +96,7 @@ class HiddenSingleStrategy : IStrategy
             for (int j = boxCol; j < boxCol + boxSize; j++)
             {
                 SudokuCell current = _board[i, j];
-                if (!current.isSolved() && current.GetOptions().Contains(ch))
+                if (!current.IsSolved() && current.GetOptions().Contains(ch))
                 {
                     count++;
                     if (count > 1)

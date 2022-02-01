@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 class BacktrackingStrategy : IStrategy
 {
-    private SudokuBoard2 _board;
-    private BoardValidator2 _validator;
-    public BacktrackingStrategy(ref SudokuBoard2 board)
+    private SudokuBoard _board;
+    private BoardValidator _validator;
+    public BacktrackingStrategy(ref SudokuBoard board)
     {
         this._board = board;
-        _validator = new BoardValidator2(ref board);
+        _validator = new BoardValidator(ref board);
     }
 
     public bool Solve()
@@ -21,7 +21,7 @@ class BacktrackingStrategy : IStrategy
             for (int col = 0; col < _board.SingleRowSize; col++)
             {
                 SudokuCell current = _board[row, col];
-                if (!current.isSolved())
+                if (!current.IsSolved())
                 {
                     foreach(char charToTry in current.GetOptions())
                     {

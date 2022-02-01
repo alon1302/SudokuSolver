@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 class NewSolver
 {
-    private SudokuBoard2 _board;
+    private SudokuBoard _board;
     private List<IStrategy> _strategies;
 
-    public NewSolver(SudokuBoard2 board)
+    public NewSolver(SudokuBoard board)
     {
         this._board = board;
         _strategies = new List<IStrategy>();
@@ -37,7 +37,7 @@ class NewSolver
         } while (solves.Contains(true));
     }
 
-    public SudokuBoard2 GetSolution()
+    public SudokuBoard GetSolution()
     {
         if (!Solve())
         {

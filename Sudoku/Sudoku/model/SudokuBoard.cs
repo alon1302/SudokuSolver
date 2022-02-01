@@ -1,21 +1,44 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-class SudokuBoard
+class SudokuBoard : ICloneable
 {
     private int _size;
-    private double _rowSize;
-    private char[,] _board;
+    private int _rowSize;
+    private SudokuCell[,] _board;
 
     public SudokuBoard(string board_str)
     {
         _size = board_str.Length;
-        _rowSize = Math.Sqrt(_size);
-        this._board = CreateCharMatrix(board_str);
+        _rowSize = (int)Math.Sqrt(_size);
+        _board = new SudokuCell[_rowSize,_rowSize];
+        for (int i = 0; i < _rowSize; i++)
+        {
+            for (int j = 0; j < _rowSize; j++)
+            {
+                char currValue = board_str[i * _rowSize + j];
+                _board[i, j] = new SudokuCell(currValue, _rowSize);
+            }
+        }
+        FixAllOptions();
     }
 
-    public SudokuBoard(SudokuBoard b)
+    public SudokuBoard()
+    { 
+    }
+
+    public SudokuCell this[int row, int col]
     {
-        this._board = (char[,])b._board.Clone();
+        get => _board[row, col];
+        set => _board[row, col] = value;
+    }
+
+    public int SingleRowSize
+    {
+        get { return _rowSize; }
     }
 
     public string getBoardStr()
@@ -25,47 +48,89 @@ class SudokuBoard
         {
             for (int j = 0; j < _rowSize; j++)
             {
-                board += _board[i, j];
+                board += _board[i, j].Value;
             }
         }
         return board;
     }
 
-    public char this[int row, int col]
+    public void RemoveOptionFromRow(char option, int row)
     {
-        get => _board[row, col];
-        set =>_board[row, col] = value;
-    }
-
-    public int getSingleRowSize()
-    {
-        return _board.GetLength(0);
-    }
-
-    private char[,] CreateCharMatrix(string boardStr)
-    {
-        _size = (int)Math.Sqrt(boardStr.Length);
-        char[,] matrix = new char[_size, _size];
-        for (int i = 0; i < _size; i++)
+        for (int col = 0; col < _rowSize; col++)
         {
-            for (int j = 0; j < _size; j++)
+            SudokuCell current = _board[row, col];
+            if (!current.IsSolved())
             {
-                matrix[i, j] = boardStr[i * _size + j];
+                current.RemoveOption(option);
             }
         }
-        return matrix;
     }
-
-    public override string ToString()
+    public void RemoveOptionFromColumn(char option, int col)
     {
-        string board_text = "";
-        for (int i = 0; i < _size; i++)
+        for (int row = 0; row < _rowSize; row++)
         {
-            for (int j = 0; j < _size; j++)
+            SudokuCell current = _board[row, col];
+            if (!current.IsSolved())
             {
-                board_text += _board[i, j];
+                current.RemoveOption(option);
             }
         }
-        return board_text;
+    }
+
+    public void RemoveOptionFromBox(char option, int row, int col)
+    {
+        int boxSize = (int)Math.Sqrt(_rowSize);
+        int boxRow = row - (row % boxSize);
+        int boxCol = col - (col % boxSize);
+        for (int i = boxRow; i < boxRow + boxSize; i++)
+        {
+            for (int j = boxCol; j < boxCol + boxSize; j++)
+            {
+                SudokuCell current = _board[i, j];
+                if (!current.IsSolved())
+                {
+                    current.RemoveOption(option);
+                }
+            }
+        }
+    }
+
+    public void RemoveOption(char ch, int row, int col)
+    {
+        RemoveOptionFromRow(ch, row);
+        RemoveOptionFromColumn(ch, col);
+        RemoveOptionFromBox(ch, row, col);
+    }
+
+    public void FixAllOptions()
+    {
+        for (int row = 0; row < _rowSize; row++)
+        {
+            for (int col = 0; col < _rowSize; col++)
+            {
+                SudokuCell current = _board[row, col];
+                if (current.IsSolved())
+                {
+                    RemoveOption(current.Value, row, col);
+                }
+            }
+        }
+    }
+
+    public object Clone()
+    {
+        SudokuBoard ClonedBoard = new SudokuBoard();
+        ClonedBoard._size = this._size;
+        ClonedBoard._rowSize = this._rowSize;
+        ClonedBoard._board = new SudokuCell[_rowSize, _rowSize];
+        for (int i = 0; i < _rowSize; i++)
+        {
+            for (int j = 0; j < _rowSize; j++)
+            {
+                ClonedBoard[i, j] = (SudokuCell)this._board[i, j].Clone();
+            }
+        }
+        return ClonedBoard;
     }
 }
+
