@@ -8,8 +8,8 @@ class BoardFormatter : IFormatter
 
     public string Format(string input)
     {
-        OldBoard printBoard = new OldBoard(input);
-        _rowSize = printBoard.getSingleRowSize();
+        SudokuBoard printBoard = new SudokuBoard(input);
+        _rowSize = printBoard.SingleRowSize;
         string formattedBoard = "";
 
         for (int i = 0; i < _rowSize; i++)
@@ -24,16 +24,24 @@ class BoardFormatter : IFormatter
             formattedBoard += '|';
             for (int j = 0; j < _rowSize; j++)
             {
+                int currValue = printBoard[i, j].Value - '0';
                 formattedBoard += "  ";
-                if (printBoard[i, j] == '0')
+                if (currValue == 0)
                 {
                     formattedBoard += ' ';
                 }
                 else
                 {
-                    formattedBoard += printBoard[i, j];
+                    formattedBoard += currValue;
                 }
-                formattedBoard += "  |";
+                if (currValue > 9)
+                {
+                    formattedBoard += " |";
+                }
+                else
+                {
+                    formattedBoard += "  |";
+                }
             }
             formattedBoard += GetRowOfCellsBottom();
         }
