@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-class SudokuCell
+class SudokuCell : ICloneable
 {
     private char _value;
     private HashSet<char> _options;
@@ -23,6 +23,11 @@ class SudokuCell
                 }
             }
         }
+    }
+
+    public SudokuCell(char value)
+    {
+        _value = value;
     }
 
     public char Value
@@ -65,6 +70,13 @@ class SudokuCell
     public bool isSolved()
     {
         return _value != '0';
+    }
+
+    public object Clone()
+    {
+        SudokuCell sudokuCell = new SudokuCell(this._value);
+        sudokuCell._options = new HashSet<char>(this._options);
+        return sudokuCell;
     }
 }
 

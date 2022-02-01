@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-class SudokuBoard2
+class SudokuBoard2 : ICloneable
 {
     private int _size;
     private int _rowSize;
@@ -24,6 +24,10 @@ class SudokuBoard2
             }
         }
         FixAllOptions();
+    }
+
+    public SudokuBoard2()
+    { 
     }
 
     public SudokuCell this[int row, int col]
@@ -111,6 +115,22 @@ class SudokuBoard2
                 }
             }
         }
+    }
+
+    public object Clone()
+    {
+        SudokuBoard2 ClonedBoard = new SudokuBoard2();
+        ClonedBoard._size = this._size;
+        ClonedBoard._rowSize = this._rowSize;
+        ClonedBoard._board = new SudokuCell[_rowSize, _rowSize];
+        for (int i = 0; i < _rowSize; i++)
+        {
+            for (int j = 0; j < _rowSize; j++)
+            {
+                ClonedBoard[i, j] = (SudokuCell)this._board[i, j].Clone();
+            }
+        }
+        return ClonedBoard;
     }
 }
 
