@@ -64,7 +64,7 @@
     <Compile Include="readers\ConsoleReader.cs" />
     <Compile Include="readers\FileReader.cs" />
     <Compile Include="readers\IReader.cs" />
-    <Compile Include="readers\OpenFileDialogHandle.cs" />
+    <Compile Include="readers\FilePathesHandle.cs" />
     <Compile Include="Runner.cs" />
     <Compile Include="writers\ConsoleWriter.cs" />
     <Compile Include="writers\ErrorWriter.cs" />
