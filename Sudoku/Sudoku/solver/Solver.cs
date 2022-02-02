@@ -24,6 +24,7 @@ class Solver
     private bool Solve()
     {
         SolveByStrategies();
+        new ConsoleWriter(new BoardFormatter()).Write(_board.getBoardStr());
         BacktrackingStrategy backtracking = new BacktrackingStrategy(ref _board);
         return backtracking.Solve();
     }
@@ -48,7 +49,7 @@ class Solver
         }
         foreach (char charToTry in current.GetOptions())
         {
-            //current = FindOptimalEmptyCell();
+            current = FindOptimalEmptyCell();
             current.SetValue(charToTry);
             _board.FixAllOptions();
             new ConsoleWriter(new BoardFormatter()).Write(_board.getBoardStr());

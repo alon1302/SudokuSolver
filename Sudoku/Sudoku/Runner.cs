@@ -3,14 +3,26 @@ using System.IO;
 
 class Runner
 {
-    public static void run()
+    public static void RunAll()
+    {
+        char input = '-';
+        do
+        {
+            SingleRun();
+            Console.WriteLine("want to continue? press 'Y', otherwise press 'N'");
+            input = Console.ReadKey().KeyChar;
+            
+        } while (input != 'N' && input != 'n');
+    }
+
+    public static void SingleRun()
     {
         MainWriter mainWriter = new MainWriter();
         ConsoleWriter consoleWriter = new ConsoleWriter(new BoardFormatter());
         ErrorWriter errorWriter = new ErrorWriter();
         mainWriter.AddWriter(consoleWriter);
 
-        Console.WriteLine("how to you want to insert your board?\nF - file \nT -typing");
+        Console.WriteLine("\nhow to you want to insert your board?\nF - file \nT -typing");
         char input = Console.ReadKey().KeyChar;
         Console.WriteLine();
         IReader reader;
@@ -22,14 +34,15 @@ class Runner
                 break;
             case 'F':
             case 'f':
-                string filePath = OpenFileDialogHandle.GetSelectedFilePath();
-                if (filePath == null)
+                string inputFilePath = FilePathesHandle.GetSelectedFilePath();
+                string outputFilePath = FilePathesHandle.CreateResultFilePath(inputFilePath);
+                if (inputFilePath == null)
                 {
                     errorWriter.Write("Failed to open file");
                     return;
                 }
-                reader = new FileReader(filePath);
-                mainWriter.AddWriter(new FileWriter(CreateResultFilePath(filePath)));
+                reader = new FileReader(inputFilePath);
+                mainWriter.AddWriter(new FileWriter(outputFilePath));
                 break;
             default:
                 reader = new ConsoleReader();
@@ -73,14 +86,6 @@ class Runner
         mainWriter.Write(solutionStr);
     }
 
-    private static string CreateResultFilePath(string filePath)
-    {
-        DirectoryInfo parentPath = Directory.GetParent(filePath);
-        string newPath = parentPath.FullName;
-        string newFileName = Path.GetFileNameWithoutExtension(filePath);
-        newFileName += "-result.txt";
-        newPath = Path.Combine(newPath, newFileName);
-        return newPath;
-    }
+    
 }
 

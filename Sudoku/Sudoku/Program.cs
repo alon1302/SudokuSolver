@@ -11,7 +11,7 @@ namespace Sudoku
         [STAThread]
         static void Main(string[] args)
         {
-            Runner.run();
+            Runner.RunAll();
         }
     }
 }

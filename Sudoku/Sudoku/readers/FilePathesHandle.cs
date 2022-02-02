@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Forms;
 
-class OpenFileDialogHandle
+class FilePathesHandle
 {
     [STAThread]
     public static string GetSelectedFilePath()
@@ -23,6 +24,16 @@ class OpenFileDialogHandle
             }
         }
         return null;
+    }
+
+    public static string CreateResultFilePath(string filePath)
+    {
+        DirectoryInfo parentPath = Directory.GetParent(filePath);
+        string newPath = parentPath.FullName;
+        string newFileName = Path.GetFileNameWithoutExtension(filePath);
+        newFileName += "-result.txt";
+        newPath = Path.Combine(newPath, newFileName);
+        return newPath;
     }
 }
 
