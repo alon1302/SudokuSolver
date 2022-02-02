@@ -9,14 +9,10 @@ class BoardFormatter : IFormatter
     public string Format(string input)
     {
         SudokuBoard printBoard = new SudokuBoard(input);
-        _rowSize = printBoard.SingleRowSize;
+        _rowSize = printBoard.RowSize;
         string formattedBoard = "";
 
-        for (int i = 0; i < _rowSize; i++)
-        {
-            formattedBoard += " _____";
-        }
-        formattedBoard += '\n';
+        formattedBoard += GetRowOfTableTop();
 
         for (int i = 0; i < _rowSize; i++)
         {
@@ -46,6 +42,17 @@ class BoardFormatter : IFormatter
             formattedBoard += GetRowOfCellsBottom();
         }
         return formattedBoard;
+    }
+
+    private string GetRowOfTableTop()
+    {
+        string row = "";
+        for (int i = 0; i < _rowSize; i++)
+        {
+            row += " _____";
+        }
+        row += '\n';
+        return row;
     }
 
     private string GetRowOfCellsTop()

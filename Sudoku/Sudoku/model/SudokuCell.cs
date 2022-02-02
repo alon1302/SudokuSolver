@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 
 class SudokuCell : ICloneable
 {
+    private const char EMPTY_CELL = '0';
     private char _value;
     private HashSet<char> _options;
-    //public int row, col;
 
-    public SudokuCell(char value, int boardSize)
+    public SudokuCell(char value, int boardRowSize)
     {
         _value = value;
         _options = new HashSet<char>();
-        if (_value == '0')
+        if (_value == EMPTY_CELL)
         {
-            for (char ch = '1'; ch <= '0' + boardSize; ch++)
+            for (char ch = '1'; ch <= EMPTY_CELL + boardRowSize; ch++)
             {
                 if (ch != value)
                 {
@@ -42,9 +42,14 @@ class SudokuCell : ICloneable
         get {return _options.Count;}
     }
 
-    public HashSet<char> GetOptions()
+    public ICollection<char> Options
     {
-        return _options;
+        get { return _options; }
+    }
+
+    public bool HasOption(char option)
+    {
+        return _options.Contains(option);
     }
 
     public void RemoveOption(char ch)
@@ -52,19 +57,14 @@ class SudokuCell : ICloneable
         _options.Remove(ch);
     }
 
-    public char GetOption()
+    public char GetTheOnlyOption()
     {
-        char ch = '0';
-        foreach (char item in _options)
-        {
-            ch = item;
-        }
-        return ch;
+        return _options.ToArray()[0];
     }
 
     public bool IsSolved()
     {
-        return _value != '0';
+        return _value != EMPTY_CELL;
     }
 
     public object Clone()

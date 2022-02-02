@@ -16,9 +16,9 @@ class NakedSingleStrategy : IStrategy
     {
         this._board = board;
         int count = 0;
-        for (int i = 0; i < _board.SingleRowSize; i++)
+        for (int i = 0; i < _board.RowSize; i++)
         {
-            for (int j = 0; j < _board.SingleRowSize; j++)
+            for (int j = 0; j < _board.RowSize; j++)
             {
                 SudokuCell current = _board[i, j];
                 if (!current.IsSolved())
@@ -30,9 +30,9 @@ class NakedSingleStrategy : IStrategy
                     if (current.NumOfOptions == 1)
                     {
                         count++;
-                        char lastOption = current.GetOption();
+                        char lastOption = current.GetTheOnlyOption();
                         current.Value = lastOption;
-                        _board.RemoveOption(lastOption, i, j);
+                        _board.RemoveOptionFromRegion(lastOption, i, j);
                         //Console.WriteLine("find naked single " + current.Value + "  " + i + "  " + j);
                         //new ConsoleWriter(new BoardFormatter()).Write(_board.getBoardStr());
                         i = 0;

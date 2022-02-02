@@ -12,7 +12,7 @@ class BoardValidator : Ivalidator
     public bool IsCharAppearOnceInRow(char ch, int row)
     {
         int count = 0;
-        for (int col = 0; col < _board.SingleRowSize; col++)
+        for (int col = 0; col < _board.RowSize; col++)
         {
             if (ch == _board[row,col].Value)
             {
@@ -29,7 +29,7 @@ class BoardValidator : Ivalidator
     public bool IsCharAppearOnceInCol(char ch, int col)
     {
         int count = 0;
-        for (int row = 0; row < _board.SingleRowSize; row++)
+        for (int row = 0; row < _board.RowSize; row++)
         {
             if (ch == _board[row, col].Value)
             {
@@ -45,7 +45,7 @@ class BoardValidator : Ivalidator
 
     public bool IsCharAppearOnceInBox(char ch, int row, int col)
     {
-        int boxSize = (int)Math.Sqrt(_board.SingleRowSize);
+        int boxSize = (int)Math.Sqrt(_board.RowSize);
         int boxRow = row - (row % boxSize);
         int boxCol = col - (col % boxSize);
         int count = 0;
@@ -74,9 +74,9 @@ class BoardValidator : Ivalidator
 
     public bool Validate()
     {      
-        for (int row = 0; row < _board.SingleRowSize; row++)
+        for (int row = 0; row < _board.RowSize; row++)
         {
-            for (int col = 0; col < _board.SingleRowSize; col++)
+            for (int col = 0; col < _board.RowSize; col++)
             {
                 SudokuCell current = _board[row, col];
                 if (!current.IsSolved())

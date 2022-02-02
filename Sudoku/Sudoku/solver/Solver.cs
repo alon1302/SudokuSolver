@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 class Solver
 {
     private SudokuBoard _board;
-    private List<IStrategy> _strategies;
+    private ICollection<IStrategy> _strategies;
 
     public Solver(SudokuBoard board)
     {
@@ -18,13 +18,13 @@ class Solver
 
     }
 
-    private bool Solve()
-    {
-        SolveByStrategies();
-        new ConsoleWriter(new BoardFormatter()).Write(_board.getBoardStr());
-        BacktrackingStrategy backtracking = new BacktrackingStrategy();
-        return backtracking.Solve(_board);
-    }
+    //private bool Solve()
+    //{
+    //    SolveByStrategies();
+    //    new ConsoleWriter(new BoardFormatter()).Write(_board.getBoardStr());
+    //    BacktrackingStrategy backtracking = new BacktrackingStrategy();
+    //    return backtracking.Solve(_board);
+    //}
 
     private bool TrySolve()
     {
@@ -51,10 +51,10 @@ class Solver
         SudokuCell current = _board[currentRow, currentCol];
         SudokuBoard clone = (SudokuBoard)_board.Clone();
         
-        foreach (char charToTry in current.GetOptions())
+        foreach (char charToTry in current.Options)
         {
             current.Value = charToTry;
-            _board.RemoveOption(charToTry, currentRow, currentCol);
+            _board.RemoveOptionFromRegion(charToTry, currentRow, currentCol);
             //Console.WriteLine("making guess" + charToTry + " in [" + currentRow + "," + currentCol + "]");
             //new ConsoleWriter(new BoardFormatter()).Write(_board.getBoardStr());
             if (TrySolve())
@@ -86,9 +86,9 @@ class Solver
         int minOptions = -1;
         row = -1;
         col = -1;
-        for (int i = 0; i < _board.SingleRowSize; i++)
+        for (int i = 0; i < _board.RowSize; i++)
         {
-            for (int j = 0; j < _board.SingleRowSize; j++)
+            for (int j = 0; j < _board.RowSize; j++)
             {
                 SudokuCell current = _board[i, j];
                 if (!current.IsSolved())
@@ -112,7 +112,7 @@ class Solver
         //}
         if (!TrySolve())
         {
-            throw new Exception();
+            throw new UnsolvableBoardException("Sorry, This Board is Unsolvable");
         }
         return _board;
     }

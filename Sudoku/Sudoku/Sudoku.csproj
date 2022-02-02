@@ -47,6 +47,7 @@
     <Compile Include="exceptions\InvalidBoardSizeException.cs" />
     <Compile Include="exceptions\InvalidCharacterException.cs" />
     <Compile Include="exceptions\InvalidBoardException.cs" />
+    <Compile Include="exceptions\UnsolvableBoardException.cs" />
     <Compile Include="formatters\BoardFormatter.cs" />
     <Compile Include="formatters\IFormatter.cs" />
     <Compile Include="model\SudokuBoard.cs" />

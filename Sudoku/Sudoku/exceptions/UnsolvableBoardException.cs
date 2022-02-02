@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-class ErrorWriter : IWriter
+class UnsolvableBoardException : Exception
 {
-    public void Write(string data)
+    public UnsolvableBoardException(string message) : base(message)
     {
-        Console.WriteLine("\nERROR -> " + data + "\n");
     }
 }
 

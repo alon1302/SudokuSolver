@@ -15,9 +15,9 @@ class HiddenSingleStrategy : IStrategy
     {
         this._board = board;
         int count = 0;
-        for (int i = 0; i < _board.SingleRowSize; i++)
+        for (int i = 0; i < _board.RowSize; i++)
         {
-            for (int j = 0; j < _board.SingleRowSize; j++)
+            for (int j = 0; j < _board.RowSize; j++)
             {
                 SudokuCell current = _board[i, j];
                 if (!current.IsSolved())
@@ -26,14 +26,14 @@ class HiddenSingleStrategy : IStrategy
                     {
                         return false;
                     }
-                    foreach (char item in current.GetOptions())
+                    foreach (char item in current.Options)
                     {
                         if (IsSingle(item, i, j))
                         {
                             count++;
                             //Console.WriteLine("find hidden single " + item + "    "+ i + "  "+ j);
                             current.Value = item;
-                            _board.RemoveOption(item, i, j);
+                            _board.RemoveOptionFromRegion(item, i, j);
                             //c.Write(_board.getBoardStr());
                             i = 0;
                             j = 0;
@@ -54,10 +54,10 @@ class HiddenSingleStrategy : IStrategy
     private bool IsSingleInRow(char ch, int row)
     {
         int count = 0;
-        for (int col = 0; col < _board.SingleRowSize; col++)
+        for (int col = 0; col < _board.RowSize; col++)
         {
             SudokuCell current = _board[row, col];
-            if (!current.IsSolved() && current.GetOptions().Contains(ch))
+            if (!current.IsSolved() && current.HasOption(ch))
             {
                 count++;
                 if (count > 1)
@@ -71,10 +71,10 @@ class HiddenSingleStrategy : IStrategy
     private bool IsSingleInCol(char ch, int col)
     {
         int count = 0;
-        for (int row = 0; row < _board.SingleRowSize; row++)
+        for (int row = 0; row < _board.RowSize; row++)
         {
             SudokuCell current = _board[row, col];
-            if (!current.IsSolved() && current.GetOptions().Contains(ch))
+            if (!current.IsSolved() && current.HasOption(ch))
             {
                 count++;
                 if (count > 1)
@@ -88,7 +88,7 @@ class HiddenSingleStrategy : IStrategy
     private bool IsSingleInBox(char ch, int row, int col)
     {
         int count = 0;
-        int boxSize = (int)Math.Sqrt(_board.SingleRowSize);
+        int boxSize = (int)Math.Sqrt(_board.RowSize);
         int boxRow = row - (row % boxSize);
         int boxCol = col - (col % boxSize);
         for (int i = boxRow; i < boxRow + boxSize; i++)
@@ -96,7 +96,7 @@ class HiddenSingleStrategy : IStrategy
             for (int j = boxCol; j < boxCol + boxSize; j++)
             {
                 SudokuCell current = _board[i, j];
-                if (!current.IsSolved() && current.GetOptions().Contains(ch))
+                if (!current.IsSolved() && current.HasOption(ch))
                 {
                     count++;
                     if (count > 1)

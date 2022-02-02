@@ -118,7 +118,7 @@ class InputValidator : Ivalidator
             char currentCell = _boardRepresentation[i];
             if (currentCell < MIN_VALUE || currentCell > maxValue)
             {
-                throw new InvalidCharacterException("the char " + currentCell + "can't be part of this size of sudoku board\n");
+                throw new InvalidCharacterException("the char '" + currentCell + "' can't be part of this size of sudoku board\n");
             }
         }
         return true;
@@ -127,6 +127,10 @@ class InputValidator : Ivalidator
     public bool Validate()
     {
         double inputSize = _boardRepresentation.Length;
+        if (inputSize == 0)
+        {
+            throw new InvalidBoardSizeException("the board can't be empty\n");
+        }
         double rowSize = Math.Sqrt(inputSize);
         if (Math.Floor(rowSize) != rowSize)
         {
