@@ -9,56 +9,62 @@ class Solver
     private SudokuBoard _board;
     private List<IStrategy> _strategies;
 
-    private BoardValidator _validator;
-
     public Solver(SudokuBoard board)
     {
         this._board = board;
         _strategies = new List<IStrategy>();
-        _strategies.Add(new NakedSingleStrategy(ref _board));
-        _strategies.Add(new HiddenSingleStrategy(ref _board));
+        _strategies.Add(new NakedSingleStrategy());
+        _strategies.Add(new HiddenSingleStrategy());
 
-        _validator = new BoardValidator(ref _board);
     }
 
     private bool Solve()
     {
         SolveByStrategies();
         new ConsoleWriter(new BoardFormatter()).Write(_board.getBoardStr());
-        BacktrackingStrategy backtracking = new BacktrackingStrategy(ref _board);
-        return backtracking.Solve();
+        BacktrackingStrategy backtracking = new BacktrackingStrategy();
+        return backtracking.Solve(_board);
     }
 
     private bool TrySolve()
     {
         SolveByStrategies();
+        //new ConsoleWriter(new BoardFormatter()).Write(_board.getBoardStr());
+        BoardValidator _validator = new BoardValidator(_board);
         if (!_validator.Validate())
         {
-            new ConsoleWriter(new BoardFormatter()).Write(_board.getBoardStr());
+            //new ConsoleWriter(new BoardFormatter()).Write(_board.getBoardStr());
             return false;
         }
         if (_board.isSolved())
         {
             return true;
         }
-        SudokuCell current = FindOptimalEmptyCell();
-        SudokuBoard clone = (SudokuBoard)_board.Clone();
-        if (current == null)
+        //new ConsoleWriter(new BoardFormatter()).Write(_board.getBoardStr());
+        int currentRow = -1, currentCol = -1;
+        FindOptimalEmptyCellLocation(out currentRow, out currentCol);
+        if (currentRow == -1 || currentCol == -1)
         {
+            //new ConsoleWriter(new BoardFormatter()).Write(_board.getBoardStr());
             return false;
         }
+        SudokuCell current = _board[currentRow, currentCol];
+        SudokuBoard clone = (SudokuBoard)_board.Clone();
+        
         foreach (char charToTry in current.GetOptions())
         {
-            current = FindOptimalEmptyCell();
-            current.SetValue(charToTry);
-            _board.FixAllOptions();
-            new ConsoleWriter(new BoardFormatter()).Write(_board.getBoardStr());
+            current.Value = charToTry;
+            _board.RemoveOption(charToTry, currentRow, currentCol);
+            //Console.WriteLine("making guess" + charToTry + " in [" + currentRow + "," + currentCol + "]");
+            //new ConsoleWriter(new BoardFormatter()).Write(_board.getBoardStr());
             if (TrySolve())
             {
                 return true;
             }
             _board = (SudokuBoard)clone.Clone();
+            current = _board[currentRow, currentCol];
         }
+        //new ConsoleWriter(new BoardFormatter()).Write(_board.getBoardStr());
         return false;
     }
 
@@ -70,14 +76,16 @@ class Solver
             solves = new List<bool>();
             foreach (IStrategy strategy in _strategies)
             {
-                solves.Add(strategy.Solve());
+                solves.Add(strategy.Solve(_board));
             }
         } while (solves.Contains(true));
     }
 
-    private SudokuCell FindOptimalEmptyCell()
+    private void FindOptimalEmptyCellLocation(out int row, out int col)
     {
-        SudokuCell minOptions = null;
+        int minOptions = -1;
+        row = -1;
+        col = -1;
         for (int i = 0; i < _board.SingleRowSize; i++)
         {
             for (int j = 0; j < _board.SingleRowSize; j++)
@@ -85,26 +93,27 @@ class Solver
                 SudokuCell current = _board[i, j];
                 if (!current.IsSolved())
                 {
-                    if (minOptions == null || current.NumOfOptions < minOptions.NumOfOptions)
+                    if (minOptions == -1 || current.NumOfOptions < minOptions)
                     {
-                        minOptions = current;
+                        minOptions = current.NumOfOptions;
+                        row = i;
+                        col = j;
                     }
                 }
             }
         }
-        return minOptions;
     }
 
     public SudokuBoard GetSolution()
     {
-        if (!Solve())
-        {
-            throw new Exception(); // TODO custom exception - unsolveable board
-        }
-        //if (!TrySolve())
+        //if (!Solve())
         //{
-        //    throw new Exception();
+        //    throw new Exception(); // TODO custom exception - unsolveable board
         //}
+        if (!TrySolve())
+        {
+            throw new Exception();
+        }
         return _board;
     }
 }

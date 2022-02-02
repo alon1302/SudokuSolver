@@ -2,9 +2,9 @@
 
 class BoardValidator : Ivalidator
 {
-    SudokuBoard _board;
+    private SudokuBoard _board;
 
-    public BoardValidator(ref SudokuBoard board)
+    public BoardValidator(SudokuBoard board)
     {
         _board = board;
     }
@@ -73,7 +73,7 @@ class BoardValidator : Ivalidator
     }
 
     public bool Validate()
-    {
+    {      
         for (int row = 0; row < _board.SingleRowSize; row++)
         {
             for (int col = 0; col < _board.SingleRowSize; col++)

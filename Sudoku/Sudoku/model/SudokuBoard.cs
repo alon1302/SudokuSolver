@@ -21,6 +21,9 @@ class SudokuBoard : ICloneable
             {
                 char currValue = board_str[i * _rowSize + j];
                 _board[i, j] = new SudokuCell(currValue, _rowSize);
+                //_board[i, j].row = i;
+                //_board[i, j].col = j;
+
             }
         }
         FixAllOptions();

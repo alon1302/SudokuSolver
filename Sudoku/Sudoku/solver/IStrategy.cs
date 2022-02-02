@@ -6,6 +6,6 @@ using System.Threading.Tasks;
 
 interface IStrategy
 {
-    bool Solve();
+    bool Solve(SudokuBoard board);
 }
 

@@ -8,12 +8,12 @@ class HiddenSingleStrategy : IStrategy
 {
     private SudokuBoard _board;
     private ConsoleWriter c = new ConsoleWriter(new BoardFormatter());
-    public HiddenSingleStrategy(ref SudokuBoard board)
+    public HiddenSingleStrategy()
+    { 
+    }
+    public bool Solve(SudokuBoard board)
     {
         this._board = board;
-    }
-    public bool Solve()
-    {
         int count = 0;
         for (int i = 0; i < _board.SingleRowSize; i++)
         {
@@ -32,7 +32,7 @@ class HiddenSingleStrategy : IStrategy
                         {
                             count++;
                             //Console.WriteLine("find hidden single " + item + "    "+ i + "  "+ j);
-                            current.SetValue(item);
+                            current.Value = item;
                             _board.RemoveOption(item, i, j);
                             //c.Write(_board.getBoardStr());
                             i = 0;

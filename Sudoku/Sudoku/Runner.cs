@@ -35,12 +35,12 @@ class Runner
             case 'F':
             case 'f':
                 string inputFilePath = FilePathesHandle.GetSelectedFilePath();
-                string outputFilePath = FilePathesHandle.CreateResultFilePath(inputFilePath);
                 if (inputFilePath == null)
                 {
                     errorWriter.Write("Failed to open file");
                     return;
                 }
+                string outputFilePath = FilePathesHandle.CreateResultFilePath(inputFilePath);
                 reader = new FileReader(inputFilePath);
                 mainWriter.AddWriter(new FileWriter(outputFilePath));
                 break;

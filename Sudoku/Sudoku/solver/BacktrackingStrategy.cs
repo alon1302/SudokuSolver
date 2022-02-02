@@ -8,14 +8,14 @@ class BacktrackingStrategy : IStrategy
 {
     private SudokuBoard _board;
     private BoardValidator _validator;
-    public BacktrackingStrategy(ref SudokuBoard board)
+    public BacktrackingStrategy()
     {
-        this._board = board;
-        _validator = new BoardValidator(ref board);
     }
 
-    public bool Solve()
+    public bool Solve(SudokuBoard board)
     {
+        this._board = board;
+        _validator = new BoardValidator(board);
         for (int row = 0; row < _board.SingleRowSize; row++)
         {
             for (int col = 0; col < _board.SingleRowSize; col++)
@@ -28,7 +28,7 @@ class BacktrackingStrategy : IStrategy
                         if (_validator.IsValidPlace(charToTry, row, col))
                         {
                             _board[row, col].Value = charToTry;
-                            if (Solve())
+                            if (Solve(_board))
                             {
                                 return true;
                             }

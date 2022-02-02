@@ -8,6 +8,7 @@ class SudokuCell : ICloneable
 {
     private char _value;
     private HashSet<char> _options;
+    //public int row, col;
 
     public SudokuCell(char value, int boardSize)
     {
@@ -49,12 +50,6 @@ class SudokuCell : ICloneable
     public void RemoveOption(char ch)
     {
         _options.Remove(ch);
-    }
-
-    public void SetValue(char ch)
-    {
-        _value = ch;
-        //_options = null;
     }
 
     public char GetOption()
