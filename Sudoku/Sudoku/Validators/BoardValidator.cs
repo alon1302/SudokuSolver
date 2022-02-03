@@ -95,15 +95,15 @@ class BoardValidator : Ivalidator
         return true;
     }
 
-    public bool IsValidPlace(char ch, int row, int col)
-    {
-        _board[row, col].Value = ch;
-        if (IsValidCharInPlace(ch, row, col))
-        {
-            return true;
-        }
-        _board[row, col].Value = '0';
-        return false;
-    }
+    //public bool IsValidPlace(char ch, int row, int col)
+    //{
+    //    _board[row, col].Value = ch;
+    //    if (IsValidCharInPlace(ch, row, col))
+    //    {
+    //        return true;
+    //    }
+    //    _board[row, col].Value = '0';
+    //    return false;
+    //}
 }
 

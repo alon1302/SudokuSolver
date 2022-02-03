@@ -141,6 +141,5 @@ class InputValidator : Ivalidator
         ValiadateValuesPlacment();
         return true;
     }
-
 }
 

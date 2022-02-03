@@ -7,10 +7,7 @@ using System.Threading.Tasks;
 class HiddenSingleStrategy : IStrategy
 {
     private SudokuBoard _board;
-    private ConsoleWriter c = new ConsoleWriter(new BoardFormatter());
-    public HiddenSingleStrategy()
-    { 
-    }
+
     public bool Solve(SudokuBoard board)
     {
         this._board = board;
@@ -31,10 +28,8 @@ class HiddenSingleStrategy : IStrategy
                         if (IsSingle(item, i, j))
                         {
                             count++;
-                            //Console.WriteLine("find hidden single " + item + "    "+ i + "  "+ j);
                             current.Value = item;
-                            _board.RemoveOptionFromRegion(item, i, j);
-                            //c.Write(_board.getBoardStr());
+                            _board.RemoveOptionFromCellRegions(item, i, j);
                             i = 0;
                             j = 0;
                             break;
@@ -50,7 +45,6 @@ class HiddenSingleStrategy : IStrategy
     {
         return IsSingleInRow(ch, row) || IsSingleInCol(ch, col) || IsSingleInBox(ch, row, col);
     }
-
     private bool IsSingleInRow(char ch, int row)
     {
         int count = 0;

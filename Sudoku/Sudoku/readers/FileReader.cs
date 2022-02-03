@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 
-
 class FileReader : IReader
 {
     private string _filePath;
@@ -17,7 +16,7 @@ class FileReader : IReader
     {
         if (!File.Exists(_filePath))
         {
-            throw new FileNotFoundException("Can't found file"); // TODO custom exception
+            throw new FileNotFoundException($"There is No File Located at {_filePath}"); 
         }
         return File.ReadAllText(_filePath);
     }

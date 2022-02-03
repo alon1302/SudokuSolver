@@ -15,7 +15,6 @@ class Solver
         _strategies = new List<IStrategy>();
         _strategies.Add(new NakedSingleStrategy());
         _strategies.Add(new HiddenSingleStrategy());
-
     }
 
     //private bool Solve()
@@ -28,44 +27,37 @@ class Solver
 
     private bool TrySolve()
     {
-        SolveByStrategies();
-        //new ConsoleWriter(new BoardFormatter()).Write(_board.getBoardStr());
+        SolveByStrategies(); // try to solve to current board with all the strategies
         BoardValidator _validator = new BoardValidator(_board);
-        if (!_validator.Validate())
+        if (!_validator.Validate()) 
         {
-            //new ConsoleWriter(new BoardFormatter()).Write(_board.getBoardStr());
-            return false;
+            return false; // in case the board is not valid
         }
-        if (_board.isSolved())
+        if (_board.IsSolved())
         {
-            return true;
+            return true; // in case the board is fully solved
         }
-        //new ConsoleWriter(new BoardFormatter()).Write(_board.getBoardStr());
         int currentRow = -1, currentCol = -1;
-        FindOptimalEmptyCellLocation(out currentRow, out currentCol);
+        FindOptimalEmptyCellLocation(out currentRow, out currentCol); // find the current optimal cell (with the minimum number of options)
         if (currentRow == -1 || currentCol == -1)
         {
-            //new ConsoleWriter(new BoardFormatter()).Write(_board.getBoardStr());
-            return false;
+            return false; // if thete is no match cell
         }
-        SudokuCell current = _board[currentRow, currentCol];
-        SudokuBoard clone = (SudokuBoard)_board.Clone();
-        
-        foreach (char charToTry in current.Options)
+        SudokuCell current = _board[currentRow, currentCol]; // get refrence to the optimal cell
+        SudokuBoard clone = (SudokuBoard)_board.Clone(); // clone the current board to make guesses with no worries
+        foreach (char charToTry in current.Options) // iterate over the options of the current optimal cell
         {
-            current.Value = charToTry;
-            _board.RemoveOptionFromRegion(charToTry, currentRow, currentCol);
-            //Console.WriteLine("making guess" + charToTry + " in [" + currentRow + "," + currentCol + "]");
-            //new ConsoleWriter(new BoardFormatter()).Write(_board.getBoardStr());
+            current.Value = charToTry; // make a guess on the current board
+            _board.RemoveOptionFromCellRegions(charToTry, currentRow, currentCol); // fix the options on the board according to the guess
             if (TrySolve())
             {
-                return true;
+                return true; // in case the guess was successful
             }
-            _board = (SudokuBoard)clone.Clone();
-            current = _board[currentRow, currentCol];
+            // else - bad guess
+            _board = (SudokuBoard)clone.Clone(); // retrive refrence to the original board before the guess 
+            current = _board[currentRow, currentCol]; // get refrence to the optimal cell (needed because of the clone)
         }
-        //new ConsoleWriter(new BoardFormatter()).Write(_board.getBoardStr());
-        return false;
+        return false; // can't solve the current board
     }
 
     public void SolveByStrategies()

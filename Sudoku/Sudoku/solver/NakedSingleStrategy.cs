@@ -8,10 +8,6 @@ class NakedSingleStrategy : IStrategy
 {
     private SudokuBoard _board;
 
-    public NakedSingleStrategy()
-    {  
-    }
-
     public bool Solve(SudokuBoard board)
     {
         this._board = board;
@@ -32,9 +28,7 @@ class NakedSingleStrategy : IStrategy
                         count++;
                         char lastOption = current.GetTheOnlyOption();
                         current.Value = lastOption;
-                        _board.RemoveOptionFromRegion(lastOption, i, j);
-                        //Console.WriteLine("find naked single " + current.Value + "  " + i + "  " + j);
-                        //new ConsoleWriter(new BoardFormatter()).Write(_board.getBoardStr());
+                        _board.RemoveOptionFromCellRegions(lastOption, i, j);
                         i = 0;
                         j = 0;
                     }

@@ -22,8 +22,11 @@ class FilePathesHandle
             {
                 return dialog.FileName;
             }
+            else
+            {
+                throw new FileDialogException();
+            }
         }
-        return null;
     }
 
     public static string CreateResultFilePath(string filePath)

@@ -6,10 +6,16 @@ using System.Threading.Tasks;
 
 class SudokuCell : ICloneable
 {
-    private const char EMPTY_CELL = '0';
-    private char _value;
-    private HashSet<char> _options;
+    private const char EMPTY_CELL = '0'; // value of an empty cell
+    private char _value; // the value of the cell
+    private ISet<char> _options; // set of options that can be in an empty cell
 
+    /// <summary>
+    /// Constructor that receives value and the size of a row in the board
+    /// the function set the value for the cell and initiates its options if its empty
+    /// </summary>
+    /// <param name="value">the value of the cell</param>
+    /// <param name="boardRowSize">the size of row in the board</param>
     public SudokuCell(char value, int boardRowSize)
     {
         _value = value;
@@ -26,11 +32,18 @@ class SudokuCell : ICloneable
         }
     }
 
-    public SudokuCell(char value)
+    /// <summary>
+    /// private Constructor with only value parameter for the Clone method
+    /// </summary>
+    /// <param name="value">the value of the cell</param>
+    private SudokuCell(char value)
     {
         _value = value;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public char Value
     {
         get { return _value; }
@@ -42,7 +55,7 @@ class SudokuCell : ICloneable
         get {return _options.Count;}
     }
 
-    public ICollection<char> Options
+    public ISet<char> Options
     {
         get { return _options; }
     }

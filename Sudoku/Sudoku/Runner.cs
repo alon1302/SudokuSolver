@@ -36,11 +36,16 @@ class Runner
         {
             case 'F':
             case 'f':
-                string inputFilePath = FilePathesHandle.GetSelectedFilePath();
-                if (inputFilePath == null)
+                string inputFilePath;
+                try
                 {
-                    errorWriter.Write("Failed to open file");
-                    return;
+                    inputFilePath = FilePathesHandle.GetSelectedFilePath();
+                }
+                catch (FileDialogException)
+                {
+                    Console.WriteLine("Enter Full File Path");
+                    inputFilePath = Console.ReadLine();
+                    throw;
                 }
                 string outputFilePath = FilePathesHandle.CreateResultFilePath(inputFilePath);
                 reader = new FileReader(inputFilePath);
@@ -89,18 +94,18 @@ class Runner
         input_board = new SudokuBoard(input_str);
         Solver solver = new Solver(input_board);
         Stopwatch stopwatch = new Stopwatch();
-        stopwatch.Start();
         SudokuBoard solved = null;
         try
         {
+            stopwatch.Start();
             solved = solver.GetSolution();
+            stopwatch.Stop();
         }
         catch (UnsolvableBoardException e)
         {
             errorWriter.Write(e.Message);
             return;
         }
-        stopwatch.Stop();
         string solutionStr = solved.ToString();
         Console.WriteLine("The Solution: ");
         mainWriter.Write(solutionStr);

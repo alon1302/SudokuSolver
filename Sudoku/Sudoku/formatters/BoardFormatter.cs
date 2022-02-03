@@ -4,27 +4,41 @@ using System.Text;
 
 class BoardFormatter : IFormatter
 {
+    private const char MIN_VALUE = '0';
+    private const char NEW_LINE = '\n';
+    private const char SPACE = ' ';
+    private const string EMPTY_STRING = "";
+    private const string WALL = "|";
+    private const string DOUBLE_SPACE = "  ";
+    private const string CELL_CEILING = "_____";
+    private string VOID_CELL = "     ";
+
+
     private int _rowSize;
 
+    /// <summary>
+    /// function that recieves a string that represent sudoku board
+    /// and formats it to visible board like a table for the printing
+    /// </summary>
+    /// <param name="input">string that represent sudoku board</param>
+    /// <returns>string that represent the visible board</returns>
     public string Format(string input)
     {
         SudokuBoard printBoard = new SudokuBoard(input);
         _rowSize = printBoard.RowSize;
-        string formattedBoard = "";
-
-        formattedBoard += GetRowOfTableTop();
-
+        string formattedBoard = GetTableCeiling(); // first initialize the ceiling
         for (int i = 0; i < _rowSize; i++)
         {
-            formattedBoard += GetRowOfCellsTop();
-            formattedBoard += '|';
+            formattedBoard += GetRowOfCellsTop(); // for each row add row top
+            formattedBoard += WALL; // start of the row
             for (int j = 0; j < _rowSize; j++)
             {
-                int currValue = printBoard[i, j].Value - '0';
-                formattedBoard += "  ";
+                int currValue = printBoard[i, j].Value - MIN_VALUE; 
+                formattedBoard += DOUBLE_SPACE;
+                // for each cell add its value and matchin spaces according to the value
                 if (currValue == 0)
                 {
-                    formattedBoard += ' ';
+                    formattedBoard += SPACE;
                 }
                 else
                 {
@@ -32,48 +46,62 @@ class BoardFormatter : IFormatter
                 }
                 if (currValue > 9)
                 {
-                    formattedBoard += " |";
+                    formattedBoard += SPACE;
                 }
                 else
                 {
-                    formattedBoard += "  |";
+                    formattedBoard += DOUBLE_SPACE;
                 }
+                formattedBoard += WALL;
             }
-            formattedBoard += GetRowOfCellsBottom();
+            formattedBoard += GetRowOfCellsBottom(); // for each row add row top
         }
         return formattedBoard;
     }
 
-    private string GetRowOfTableTop()
+    /// <summary>
+    /// function that bulid row of '_' characters for the board ceiling
+    /// </summary>
+    /// <returns>the board ceiling</returns>
+    private string GetTableCeiling()
     {
-        string row = "";
+        string row = EMPTY_STRING;
         for (int i = 0; i < _rowSize; i++)
         {
-            row += " _____";
+            row += SPACE + CELL_CEILING;
         }
-        row += '\n';
+        row += NEW_LINE;
         return row;
     }
 
+    /// <summary>
+    /// function that bulid row of walls with spaces for the cells top
+    /// </summary>
+    /// <returns>row of cells top</returns>
     private string GetRowOfCellsTop()
     {
-        string row = "|";
+        string row = WALL;
         for (int i = 0; i < _rowSize; i++)
         {
-            row += "     |";
+            row += VOID_CELL + WALL;
         }
-        row += '\n';
+        row += NEW_LINE;
         return row;
     }
 
+    /// <summary>
+    /// function that bulid row of walls with ceilings for the cells bottom
+    /// </summary>
+    /// <returns>row of cells bottom</returns>
     private string GetRowOfCellsBottom()
     {
-        string row = "\n|";
+        string row = EMPTY_STRING;
+        row += NEW_LINE + WALL;
         for (int i = 0; i < _rowSize; i++)
         {
-            row += "_____|";
+            row += CELL_CEILING + WALL;
         }
-        row += '\n';
+        row += NEW_LINE;
         return row;
     }
 }

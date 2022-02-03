@@ -6,9 +6,15 @@ using System.Threading.Tasks;
 
 class SudokuBoard : ICloneable
 {
-    private SudokuCell[,] _board;
-    private int _rowSize;
+    private SudokuCell[,] _board; // matrix of sudoku cells
+    private int _rowSize; // number of cells in each row
 
+    /// <summary>
+    /// Constractor that receives string that represent sudoku board
+    /// create cells metrix and calls the cell constructor for each cell
+    /// than it calls for function that initiates the options of each cell in the board
+    /// </summary>
+    /// <param name="board_str">string that represent sudoku board</param>
     public SudokuBoard(string board_str)
     {
         _rowSize = (int)Math.Sqrt(board_str.Length);
@@ -21,25 +27,42 @@ class SudokuBoard : ICloneable
                 _board[row, col] = new SudokuCell(currValue, _rowSize);
             }
         }
-        FixAllOptions();
+        FixAllOptions(); // initiate the options of each cell in the board
     }
 
-    public SudokuBoard()
+    /// <summary>
+    /// private empty constructor for the Clone method
+    /// </summary>
+    private SudokuBoard()
     { 
     }
 
+    /// <summary>
+    /// Indexer that recieves row and column indices
+    /// and return reference to the cell in this location
+    /// </summary>
+    /// <param name="row">row index</param>
+    /// <param name="col">column index</param>
+    /// <returns></returns>
     public SudokuCell this[int row, int col]
     {
         get => _board[row, col];
         set => _board[row, col] = value;
     }
 
+    /// <summary>
+    /// Get Property for the _rowSize private field
+    /// </summary>
     public int RowSize
     {
         get { return _rowSize; }
     }
 
-    public bool isSolved()
+    /// <summary>
+    /// function that returns true if all the cells in the board are solved or false otherwise
+    /// </summary>
+    /// <returns>true if the board is solved or false otherwise</returns>
+    public bool IsSolved()
     {
         for (int row = 0; row < _rowSize; row++)
         {
@@ -54,6 +77,12 @@ class SudokuBoard : ICloneable
         return true;
     }
 
+    /// <summary>
+    /// function that receives option and row index
+    /// the function remove the option from all the cells in this row
+    /// </summary>
+    /// <param name="option">option to remove</param>
+    /// <param name="row">row index</param>
     private void RemoveOptionFromRow(char option, int row)
     {
         for (int col = 0; col < _rowSize; col++)
@@ -65,6 +94,13 @@ class SudokuBoard : ICloneable
             }
         }
     }
+
+    /// <summary>
+    /// function that receives option and column index
+    /// the function remove the option from all the cells in this column
+    /// </summary>
+    /// <param name="option">option to remove</param>
+    /// <param name="col">column index</param>
     private void RemoveOptionFromColumn(char option, int col)
     {
         for (int row = 0; row < _rowSize; row++)
@@ -76,6 +112,14 @@ class SudokuBoard : ICloneable
             }
         }
     }
+
+    /// <summary>
+    /// function that receives an option, column and row indices
+    /// the function remove the option from all the cells in the box of this location
+    /// </summary>
+    /// <param name="option">option to remove</param>
+    /// <param name="row">row index</param>
+    /// <param name="col">column index</param>
     private void RemoveOptionFromBox(char option, int row, int col)
     {
         int boxSize = (int)Math.Sqrt(_rowSize);
@@ -93,12 +137,25 @@ class SudokuBoard : ICloneable
             }
         }
     }
-    public void RemoveOptionFromRegion(char ch, int row, int col)
+
+    /// <summary>
+    /// function that receives option and cell location 
+    /// the function calls little functions that remove the options from each region of that cell
+    /// </summary>
+    /// <param name="option">option to remove</param>
+    /// <param name="row">row index</param>
+    /// <param name="col">column index</param>
+    public void RemoveOptionFromCellRegions(char option, int row, int col)
     {
-        RemoveOptionFromRow(ch, row);
-        RemoveOptionFromColumn(ch, col);
-        RemoveOptionFromBox(ch, row, col);
+        RemoveOptionFromRow(option, row);
+        RemoveOptionFromColumn(option, col);
+        RemoveOptionFromBox(option, row, col);
     }
+
+    /// <summary>
+    /// function that initiate the options for each cell in the board 
+    /// according to the values of the cells in overlapping regions
+    /// </summary>
     private void FixAllOptions()
     {
         for (int row = 0; row < _rowSize; row++)
@@ -108,12 +165,16 @@ class SudokuBoard : ICloneable
                 SudokuCell current = _board[row, col];
                 if (current.IsSolved())
                 {
-                    RemoveOptionFromRegion(current.Value, row, col);
+                    RemoveOptionFromCellRegions(current.Value, row, col);
                 }
             }
         }
     }
 
+    /// <summary>
+    /// override to the object.Clone function in order to create full deep copy of the board
+    /// </summary>
+    /// <returns>new object that is the same board by value</returns>
     public object Clone()
     {
         SudokuBoard ClonedBoard = new SudokuBoard();
@@ -129,6 +190,10 @@ class SudokuBoard : ICloneable
         return ClonedBoard;
     }
 
+    /// <summary>
+    /// override to the object.ToString() function in order to return string that represent the board
+    /// </summary>
+    /// <returns>string that represent this sudoku board</returns>
     public override string ToString()
     {
         string board = "";
@@ -141,6 +206,5 @@ class SudokuBoard : ICloneable
         }
         return board;
     }
-
 }
 
