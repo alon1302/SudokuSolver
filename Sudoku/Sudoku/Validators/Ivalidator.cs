@@ -8,5 +8,7 @@ interface Ivalidator
     bool IsCharAppearOnceInRow(char ch, int row);
     bool IsCharAppearOnceInCol(char ch, int col);
     bool IsCharAppearOnceInBox(char ch, int row, int col);
+
+    bool Validate();
 }
 

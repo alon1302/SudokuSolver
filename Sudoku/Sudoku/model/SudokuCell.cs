@@ -6,10 +6,13 @@ using System.Threading.Tasks;
 
 class SudokuCell : ICloneable
 {
+    // ------------------------PRIVATE FIELDS----------------------------
     private const char EMPTY_CELL = '0'; // value of an empty cell
     private char _value; // the value of the cell
     private ISet<char> _options; // set of options that can be in an empty cell
+    // ------------------------------------------------------------------
 
+    // ------------------------Constructors------------------------------
     /// <summary>
     /// Constructor that receives value and the size of a row in the board
     /// the function set the value for the cell and initiates its options if its empty
@@ -40,9 +43,11 @@ class SudokuCell : ICloneable
     {
         _value = value;
     }
+    // ------------------------------------------------------------------
 
+    // ------------------------PUBLIC PROPERTIES-------------------------
     /// <summary>
-    /// 
+    /// Property for get and set the _value private field
     /// </summary>
     public char Value
     {
@@ -50,41 +55,79 @@ class SudokuCell : ICloneable
         set { _value = value; }
     }
 
+    /// <summary>
+    /// Proprety for get the amount of options that can be in this cell
+    /// </summary>
     public int NumOfOptions
     {
         get {return _options.Count;}
     }
 
+    /// <summary>
+    /// Property for get reference to the _option private field 
+    /// </summary>
     public ISet<char> Options
     {
         get { return _options; }
     }
+    // ------------------------------------------------------------------
 
+    // ------------------------PUBLIC METHODS----------------------------
+    /// <summary>
+    /// function that receives an option and returns true is the option is exist in the _option field
+    /// or false if not
+    /// </summary>
+    /// <param name="option">the option to check</param>
+    /// <returns>true if option exist in _options or false otherwise</returns>
     public bool HasOption(char option)
     {
         return _options.Contains(option);
     }
 
-    public void RemoveOption(char ch)
+    /// <summary>
+    /// function that receives an option and removes it from the _options
+    /// it doesn't metter if the option is exist or not because the 
+    /// HashSet.Romove() function remove only if exist
+    /// </summary>
+    /// <param name="option">the option to remove</param>
+    public void RemoveOption(char option)
     {
-        _options.Remove(ch);
+        _options.Remove(option);
     }
 
+    /// <summary>
+    /// function that returns the "first" item in the set
+    /// this function called only if the _options set contains just one value
+    /// </summary>
+    /// <returns>the single value in the _options set</returns>
     public char GetTheOnlyOption()
     {
         return _options.ToArray()[0];
     }
 
+    /// <summary>
+    /// function that reeturn true if this cell is already solved
+    /// or false if the cell is empty cell
+    /// </summary>
+    /// <returns>true is cell is solved or false otherwise</returns>
     public bool IsSolved()
     {
         return _value != EMPTY_CELL;
     }
+    // -------------------------------------------------------------------
 
+    // ------------------------OVERRIDES----------------------------------
+    /// <summary>
+    /// override to the object.Clone function in order to create full deep copy of this cell
+    /// </summary>
+    /// <returns>new object that is the same cell by value</returns>
     public object Clone()
     {
-        SudokuCell sudokuCell = new SudokuCell(this._value);
-        sudokuCell._options = new HashSet<char>(this._options);
+        SudokuCell sudokuCell = new SudokuCell(this._value); // creat new cell with the same value
+        sudokuCell._options = new HashSet<char>(this._options); // transfer all the _options set to new cell
         return sudokuCell;
     }
+    // -------------------------------------------------------------------
+
 }
 

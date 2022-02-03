@@ -6,6 +6,10 @@ using System.Text;
 
 class ConsoleReader : IReader
 {
+    /// <summary>
+    /// function that read user input from the console
+    /// </summary>
+    /// <returns>the string that the user entered</returns>
     public string Read()
     {
         Console.SetIn(new StreamReader(Console.OpenStandardInput(8192)));
