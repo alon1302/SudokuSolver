@@ -49,13 +49,11 @@ class NakedSingleStrategy : IStrategy
                         _board.RemoveOptionFromCellRegions(lastOption, i, j);
                         i = 0;
                         j = 0;
-                        //return true;
                     }
                 }
             }
         }
         return count > 0;
-        //return false;
     }
 }
 

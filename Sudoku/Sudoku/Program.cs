@@ -9,6 +9,7 @@ namespace Sudoku
 {
     class Program
     {
+        // this is code that make the console open in full screen
         [DllImport("kernel32.dll", ExactSpelling = true)]
         private static extern IntPtr GetConsoleWindow();
         private static IntPtr ThisConsole = GetConsoleWindow();
@@ -17,6 +18,11 @@ namespace Sudoku
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
 
+
+        /// <summary>
+        /// the main function of the project
+        /// opens the console in full screen and calls the run function to start the solver
+        /// </summary>
         [STAThread]
         static void Main(string[] args)
         {

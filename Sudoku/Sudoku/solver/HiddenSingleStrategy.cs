@@ -52,14 +52,12 @@ class HiddenSingleStrategy : IStrategy
                             i = 0;
                             j = 0;
                             break;
-                            //return true;
                         }
                     }
                 }
             }
         }
         return count > 0;
-        //return false;
     }
     
     /// <summary>

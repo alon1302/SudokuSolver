@@ -43,9 +43,8 @@ class Runner
                 }
                 catch (FileDialogException)
                 {
-                    Console.WriteLine("Enter Full File Path");
+                    Console.WriteLine("There Was An Error With The Open File Dialog, Please Enter Full File Path");
                     inputFilePath = Console.ReadLine();
-                    throw;
                 }
                 string outputFilePath = FilePathesHandle.CreateResultFilePath(inputFilePath);
                 reader = new FileReader(inputFilePath);

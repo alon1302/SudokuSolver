@@ -4,6 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+/// <summary>
+/// object that represent the full sudoku board
+/// hold a matrix of SudokuCell objects
+/// </summary>
 class SudokuBoard : ICloneable
 {
     private SudokuCell[,] _board; // matrix of sudoku cells

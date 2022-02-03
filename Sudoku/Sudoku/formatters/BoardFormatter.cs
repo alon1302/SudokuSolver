@@ -4,6 +4,7 @@ using System.Text;
 
 class BoardFormatter : IFormatter
 {
+    //--------------CONSTANT VALUES------------------
     private const char MIN_VALUE = '0';
     private const char NEW_LINE = '\n';
     private const char SPACE = ' ';
@@ -11,10 +12,10 @@ class BoardFormatter : IFormatter
     private const string WALL = "|";
     private const string DOUBLE_SPACE = "  ";
     private const string CELL_CEILING = "_____";
-    private string VOID_CELL = "     ";
+    private const string VOID_CELL = "     ";
 
 
-    private int _rowSize;
+    private int _rowSize; // row size of the board
 
     /// <summary>
     /// function that recieves a string that represent sudoku board
