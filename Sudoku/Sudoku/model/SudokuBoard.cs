@@ -73,7 +73,7 @@ class SudokuBoard : ICloneable
     /// function that returns true if all the cells in the board are solved or false otherwise
     /// </summary>
     /// <returns>true if the board is solved or false otherwise</returns>
-    public bool IsSolved()
+    public bool IsFull()
     {
         for (int row = 0; row < _rowSize; row++)
         {

@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 class Solver
 {
+    private const int ERROR_RETURN_VALUE = -1; // indication of error 
+
     private SudokuBoard _board; // sudoku board
     private ICollection<IStrategy> _strategies; // collection of the strategies
     
@@ -13,14 +15,11 @@ class Solver
     /// Constructor that receives the sudoku board ???and some strategies
     /// </summary>
     /// <param name="board"></param>
-    public Solver(SudokuBoard board /*params???*/)
+    public Solver(SudokuBoard board, params IStrategy[] list)
     {
         this._board = board;
-        _strategies = new List<IStrategy>();
+        _strategies = new List<IStrategy>(list);
         // add all the strategies to the list
-        _strategies.Add(new NakedSingleStrategy()); 
-        _strategies.Add(new HiddenSingleStrategy());
-        _strategies.Add(new IntersectionsStrategy());
     }
 
     /// <summary>
@@ -51,22 +50,22 @@ class Solver
         {
             return false; // in case the board is not valid
         }
-        if (_board.IsSolved())
+        if (_board.IsFull())
         {
-            return true; // in case the board is fully solved
+            return true; // in case the board is full and valid
         }
-        int currentRow = -1, currentCol = -1;
+        int currentRow = ERROR_RETURN_VALUE, currentCol = ERROR_RETURN_VALUE;
         FindOptimalEmptyCellLocation(out currentRow, out currentCol); // find the current optimal cell (with the minimum number of options)
-        if (currentRow == -1 || currentCol == -1)
+        if (currentRow == ERROR_RETURN_VALUE || currentCol == ERROR_RETURN_VALUE)
         {
             return false; // if thete is no match cell
         }
         SudokuCell current = _board[currentRow, currentCol]; // get refrence to the optimal cell
         SudokuBoard clone = (SudokuBoard)_board.Clone(); // clone the current board to make guesses with no worries
-        foreach (char charToTry in current.Options) // iterate over the options of the current optimal cell
+        foreach (char option in current.Options) // iterate over the options of the current optimal cell
         {
-            current.Value = charToTry; // make a guess on the current board
-            _board.RemoveOptionFromCellRegions(charToTry, currentRow, currentCol); // fix the options on the board according to the guess
+            current.Value = option; // make a guess on the current board
+            _board.RemoveOptionFromCellRegions(option, currentRow, currentCol); // fix the options on the board according to the guess
             if (Solve())
             {
                 return true; // in case the guess was successful
@@ -105,9 +104,9 @@ class Solver
     /// <param name="col">out parameter to "return" the column index</param>
     private void FindOptimalEmptyCellLocation(out int row, out int col)
     {
-        int minOptions = -1;
-        row = -1;
-        col = -1;
+        int minOptions = ERROR_RETURN_VALUE;
+        row = ERROR_RETURN_VALUE;
+        col = ERROR_RETURN_VALUE;
         for (int i = 0; i < _board.RowSize; i++)
         {
             for (int j = 0; j < _board.RowSize; j++)
@@ -115,7 +114,7 @@ class Solver
                 SudokuCell current = _board[i, j];
                 if (!current.IsSolved())
                 {
-                    if (minOptions == -1 || current.NumOfOptions < minOptions)
+                    if (minOptions == ERROR_RETURN_VALUE || current.NumOfOptions < minOptions)
                     {
                         minOptions = current.NumOfOptions;
                         row = i;

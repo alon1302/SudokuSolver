@@ -36,28 +36,34 @@ class BoardFormatter : IFormatter
             {
                 int currValue = printBoard[i, j].Value - MIN_VALUE; 
                 formattedBoard += DOUBLE_SPACE;
-                // for each cell add its value and matchin spaces according to the value
-                if (currValue == 0)
-                {
-                    formattedBoard += SPACE;
-                }
-                else
-                {
-                    formattedBoard += currValue;
-                }
-                if (currValue > 9)
-                {
-                    formattedBoard += SPACE;
-                }
-                else
-                {
-                    formattedBoard += DOUBLE_SPACE;
-                }
+                formattedBoard += GetCurrentCellString(currValue);
                 formattedBoard += WALL;
             }
             formattedBoard += GetRowOfCellsBottom(); // for each row add row top
         }
         return formattedBoard;
+    }
+
+    private string GetCurrentCellString(int value)
+    {
+        string returnVal = "";
+        if (value == 0)
+        {
+            returnVal += SPACE;
+        }
+        else
+        {
+            returnVal += value;  
+        }
+        if (value > 9)
+        {
+            returnVal += SPACE;
+        }
+        else
+        {
+            returnVal += DOUBLE_SPACE;
+        }
+        return returnVal;
     }
 
     /// <summary>
