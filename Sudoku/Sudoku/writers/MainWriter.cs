@@ -41,4 +41,3 @@ class MainWriter : IWriter // implements composite design pattern
         }
     }
 }
-
