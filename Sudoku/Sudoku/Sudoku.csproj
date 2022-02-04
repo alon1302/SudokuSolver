@@ -54,7 +54,6 @@
     <Compile Include="formatters\IFormatter.cs" />
     <Compile Include="model\SudokuBoard.cs" />
     <Compile Include="model\SudokuCell.cs" />
-    <Compile Include="solver\BacktrackingStrategy.cs" />
     <Compile Include="solver\HiddenSingleStrategy.cs" />
     <Compile Include="solver\IntersectionsStrategy.cs" />
     <Compile Include="solver\IStrategy.cs" />
