@@ -3,18 +3,20 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-
-class ConsoleReader : IReader
+namespace Sudoku.readers
 {
-    /// <summary>
-    /// function that read user input from the console
-    /// </summary>
-    /// <returns>the string that the user entered</returns>
-    public string Read()
+    class ConsoleReader : IReader
     {
-        Console.SetIn(new StreamReader(Console.OpenStandardInput(8192)));
-        Console.WriteLine("enter string that represent sudoku board: ");
-        return Console.ReadLine();
+        /// <summary>
+        /// function that read user input from the console
+        /// </summary>
+        /// <returns>the string that the user entered</returns>
+        public string Read()
+        {
+            Console.SetIn(new StreamReader(Console.OpenStandardInput(8192)));
+            Console.WriteLine("enter string that represent sudoku board: ");
+            return Console.ReadLine();
+        }
     }
 }
 

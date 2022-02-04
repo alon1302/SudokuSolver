@@ -4,10 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-class FileTypeException : Exception
+
+namespace Sudoku.exceptions
 {
-    public FileTypeException(string massege) : base(massege)
-    { 
+    class FileTypeException : Exception
+    {
+        public FileTypeException(string massege) : base(massege)
+        {
+        }
     }
 }
 
