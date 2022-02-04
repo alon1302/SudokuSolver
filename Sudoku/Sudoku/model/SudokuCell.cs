@@ -7,20 +7,26 @@ using System.Threading.Tasks;
 
 class SudokuCell : ICloneable
 {
-    // ------------------------PRIVATE FIELDS----------------------------
     private const char EMPTY_CELL = '0'; // value of an empty cell
+
+    // ------------------------PRIVATE FIELDS----------------------------
     private char _value; // the value of the cell
     private ISet<char> _options; // set of options that can be in an empty cell
+    private int _boxIndex; // the box that this cell belong to
     // ------------------------------------------------------------------
 
     // ------------------------Constructors------------------------------
     /// <summary>
     /// Constructor that receives value and the size of a row in the board
+    /// as well as the location in the board
     /// the function set the value for the cell and initiates its options if its empty
+    /// and set it's box index on the board by simple calculation
     /// </summary>
     /// <param name="value">the value of the cell</param>
     /// <param name="boardRowSize">the size of row in the board</param>
-    public SudokuCell(char value, int boardRowSize)
+    /// <param name="row">row index</param>
+    /// <param name="col">column index</param>
+    public SudokuCell(char value, int boardRowSize, int row, int col)
     {
         _value = value;
         _options = new HashSet<char>();
@@ -34,6 +40,8 @@ class SudokuCell : ICloneable
                 }
             }
         }
+        int boxSize = (int)Math.Sqrt(boardRowSize);
+        _boxIndex = boxSize * (row / boxSize) + col / boxSize;
     }
 
     /// <summary>
@@ -70,6 +78,14 @@ class SudokuCell : ICloneable
     public ISet<char> Options
     {
         get { return _options; }
+    }
+
+    /// <summary>
+    /// Proprety for get the box index of this cell
+    /// </summary>
+    public int BoxIndex
+    {
+        get { return _boxIndex; }
     }
     // ------------------------------------------------------------------
 
@@ -126,6 +142,7 @@ class SudokuCell : ICloneable
     {
         SudokuCell sudokuCell = new SudokuCell(this._value); // creat new cell with the same value
         sudokuCell._options = new HashSet<char>(this._options); // transfer all the _options set to new cell
+        sudokuCell._boxIndex = this._boxIndex;
         return sudokuCell;
     }
     // -------------------------------------------------------------------

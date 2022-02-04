@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 class InputValidator : Ivalidator
 {
-    private const char MIN_VALUE = '0'; // empty cell
+    private const char EMPTY_CELL = '0'; // empty cell
     private int _rowSize; // size of one row of the board
     private string _boardRepresentation; // string that represent sudoku board
 
@@ -124,21 +124,21 @@ class InputValidator : Ivalidator
             {
                 string message = "";
                 char current = GetChar(row, col);
-                if (current == '0')
+                if (current == EMPTY_CELL)
                 {
                     continue;
                 }
                 if (!IsValueAppearOnceInRow(current, row))
                 {
-                    message = "the char " + current + " is appear more than once in a single row\n";
+                    message = $"the char {current} is appear more than once in a single row\n";
                 }
                 else if (!IsValueAppearOnceInCol(current, col))
                 {
-                    message = "the char " + current + " is appear more than once in a single column " + (col + 1) + "\n";
+                    message = $"the char {current} is appear more than once in a single column\n";
                 }
                 else if (!IsValueAppearOnceInBox(current, row, col))
                 {
-                    message = "the char " + current + " is appear more than once in a single box\n";
+                    message = $"the char {current} is appear more than once in a single box\n";
                 }
                 if (message != "")
                 {
@@ -157,13 +157,13 @@ class InputValidator : Ivalidator
     /// <returns>true if all the values are in the valid range</returns>
     private bool ValidateValues()
     {
-        char maxValue = (char)(MIN_VALUE + (int)_rowSize);
+        char maxValue = (char)(EMPTY_CELL + (int)_rowSize);
         for (int i = 0; i < _rowSize * _rowSize; i++)
         {
-            char currentCell = _boardRepresentation[i];
-            if (currentCell < MIN_VALUE || currentCell > maxValue)
+            char current = _boardRepresentation[i];
+            if (current < EMPTY_CELL || current > maxValue)
             {
-                throw new InvalidCharacterException("the char '" + currentCell + "' can't be part of this size of sudoku board\n");
+                throw new InvalidCharacterException($"the char {current} can't be part of this size of sudoku board\n");
             }
         }
         return true;

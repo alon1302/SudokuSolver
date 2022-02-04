@@ -30,11 +30,11 @@ class NakedSingleStrategy : IStrategy
     {
         this._board = board;
         int count = 0;
-        for (int i = 0; i < _board.RowSize; i++)
+        for (int row = 0; row < _board.RowSize; row++)
         {
-            for (int j = 0; j < _board.RowSize; j++)
+            for (int col = 0; col < _board.RowSize; col++)
             {
-                SudokuCell current = _board[i, j];
+                SudokuCell current = _board[row, col];
                 if (!current.IsSolved())
                 {
                     if (current.NumOfOptions == 0)
@@ -46,9 +46,9 @@ class NakedSingleStrategy : IStrategy
                         count++;
                         char lastOption = current.GetTheOnlyOption();
                         current.Value = lastOption;
-                        _board.RemoveOptionFromCellRegions(lastOption, i, j);
-                        i = 0;
-                        j = 0;
+                        _board.RemoveOptionFromCellRegions(lastOption, row, col);
+                        row = 0;
+                        col = 0;
                     }
                 }
             }

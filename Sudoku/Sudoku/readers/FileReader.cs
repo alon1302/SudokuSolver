@@ -28,6 +28,10 @@ class FileReader : IReader
         {
             throw new FileNotFoundException($"There is No File Located at {_filePath}"); 
         }
+        if (!Path.GetExtension(_filePath).Equals(".txt"))
+        {
+            throw new FileTypeException($"The File {_filePath} is not in a txt format");
+        }
         return File.ReadAllText(_filePath);
     }
 }

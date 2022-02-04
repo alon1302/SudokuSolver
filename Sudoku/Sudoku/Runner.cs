@@ -63,10 +63,14 @@ class Runner
         {
             input_str = reader.Read();
         }
-        catch (FileNotFoundException e)
+        catch (Exception e)
         {
-            errorWriter.Write(e.Message);
-            return;
+            if (e is FileNotFoundException || e is FileTypeException)
+            {
+                errorWriter.Write(e.Message);
+                return;
+            }
+            throw;
         }
         InputValidator validator = new InputValidator(input_str);
         try

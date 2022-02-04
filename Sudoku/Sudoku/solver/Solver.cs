@@ -17,8 +17,10 @@ class Solver
     {
         this._board = board;
         _strategies = new List<IStrategy>();
-        _strategies.Add(new NakedSingleStrategy());
+        // add all the strategies to the list
+        _strategies.Add(new NakedSingleStrategy()); 
         _strategies.Add(new HiddenSingleStrategy());
+        _strategies.Add(new IntersectionsStrategy());
     }
 
     /// <summary>

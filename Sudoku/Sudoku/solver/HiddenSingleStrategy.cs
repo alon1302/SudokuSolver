@@ -31,26 +31,26 @@ class HiddenSingleStrategy : IStrategy
     {
         this._board = board;
         int count = 0;
-        for (int i = 0; i < _board.RowSize; i++)
+        for (int row = 0; row < _board.RowSize; row++)
         {
-            for (int j = 0; j < _board.RowSize; j++)
+            for (int col = 0; col < _board.RowSize; col++)
             {
-                SudokuCell current = _board[i, j];
+                SudokuCell current = _board[row, col];
                 if (!current.IsSolved())
                 {
                     if (current.NumOfOptions == 0)
                     {
                         return false;
                     }
-                    foreach (char item in current.Options)
+                    foreach (char option in current.Options)
                     {
-                        if (IsSingle(item, i, j))
+                        if (IsSingle(option, row, col))
                         {
                             count++;
-                            current.Value = item;
-                            _board.RemoveOptionFromCellRegions(item, i, j);
-                            i = 0;
-                            j = 0;
+                            current.Value = option;
+                            _board.RemoveOptionFromCellRegions(option, row, col);
+                            row = 0;
+                            col = 0;
                             break;
                         }
                     }
