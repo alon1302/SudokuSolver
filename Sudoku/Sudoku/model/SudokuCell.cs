@@ -35,10 +35,7 @@ namespace Sudoku.model
             {
                 for (char ch = '1'; ch <= EMPTY_CELL + boardRowSize; ch++)
                 {
-                    if (ch != value)
-                    {
-                        _options.Add(ch);
-                    }
+                    _options.Add(ch);
                 }
             }
             int boxSize = (int)Math.Sqrt(boardRowSize);

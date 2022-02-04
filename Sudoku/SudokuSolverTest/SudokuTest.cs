@@ -1,5 +1,5 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
+using Microsoft.VisualStudio.TestTools.UnitTesting; 
+ 
 namespace SudokuSolverTest
 {
     [TestClass]
@@ -9,7 +9,7 @@ namespace SudokuSolverTest
         public void InputValidationTest()
         {
             //string sudokuString;
-            //In
+            //Input
             //try
             //{
             //    account.Debit(debitAmount);
