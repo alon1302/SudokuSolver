@@ -9,7 +9,7 @@ namespace Sudoku.exceptions
     /// <summary>
     /// custom exception that represent state of unsolveable board
     /// </summary>
-    class UnsolvableBoardException : Exception
+    public class UnsolvableBoardException : Exception
     {
         /// <summary>
         /// Construtctor that receives a massege for the exception
