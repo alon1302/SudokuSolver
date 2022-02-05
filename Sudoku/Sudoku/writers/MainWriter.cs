@@ -10,7 +10,7 @@ namespace Sudoku.writers
     /// I used this becaues all the writers treated the same way (the write() method)
     /// and if needed to implement some more writers in the project its very easy
     /// </summary>
-    class MainWriter : IWriter // implements composite design pattern
+    public class MainWriter : IWriter // implements composite design pattern
     {
         private IList<IWriter> _writers; // list of writers
 

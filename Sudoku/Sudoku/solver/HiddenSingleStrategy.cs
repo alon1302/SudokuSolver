@@ -18,7 +18,7 @@ namespace Sudoku.solver
     /// and fix the options of all the cells in the board that share a region with this cell
     /// this strategy make quick and effective reduction of empty cells in the sudoku board 
     /// </summary>
-    class HiddenSingleStrategy : IStrategy
+    public class HiddenSingleStrategy : IStrategy
     {
         private SudokuBoard _board; // the sudoku board 
 

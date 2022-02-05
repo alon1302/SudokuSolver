@@ -11,7 +11,7 @@ namespace Sudoku.model
     /// object that represent the full sudoku board
     /// hold a matrix of SudokuCell objects
     /// </summary>
-    class SudokuBoard : ICloneable
+    public class SudokuBoard : ICloneable
     {
         // ------------------------PRIVATE FIELDS----------------------------
         private SudokuCell[,] _board; // matrix of sudoku cells

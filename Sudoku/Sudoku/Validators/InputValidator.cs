@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Sudoku.Validators
 {
-    class InputValidator : Ivalidator
+    public class InputValidator : Ivalidator
     {
         private const char EMPTY_CELL = '0'; // empty cell
         private int _rowSize; // size of one row of the board

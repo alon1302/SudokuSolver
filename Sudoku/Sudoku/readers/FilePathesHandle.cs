@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace Sudoku.readers
 {
-    class FilePathesHandle
+    public class FilePathesHandle
     {
         /// <summary>
         /// function that using the OpenFileDialog class and let user to choose a text file from the file explorrer

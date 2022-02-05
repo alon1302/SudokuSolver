@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Sudoku.readers
 {
-    interface IReader
+    public interface IReader
     {
         /// <summary>
         /// function that read text from any source

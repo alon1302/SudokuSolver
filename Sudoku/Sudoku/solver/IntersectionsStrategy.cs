@@ -16,7 +16,7 @@ namespace Sudoku.solver
     /// so we remove this option from all other empty cells in the spicific box.
     /// this strategy make quick and effective reduction of options in the sudoku board 
     /// </summary>
-    class IntersectionsStrategy : IStrategy
+    public class IntersectionsStrategy : IStrategy
     {
         private SudokuBoard _board; // the sudoku board 
 

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Sudoku
 {
-    class Program
+    public class Program
     {
         // this is code that make the console open in full screen
         // disclaimer - copy from the internet

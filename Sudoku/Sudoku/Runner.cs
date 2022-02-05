@@ -10,7 +10,7 @@ using System.IO;
 
 namespace Sudoku
 {
-    class Runner
+    public class Runner
     {
         private MainWriter _mainWriter; // the main writer (composite)
         private IWriter _consoleWriter; // console writer

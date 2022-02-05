@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Sudoku.model
 {
-    class SudokuCell : ICloneable
+    public class SudokuCell : ICloneable
     {
         private const char EMPTY_CELL = '0'; // value of an empty cell
 

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Sudoku.formatters
 {
-    interface IFormatter
+    public interface IFormatter
     {
         /// <summary>
         /// function that receives string of some data and format it in some way

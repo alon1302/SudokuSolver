@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Sudoku.formatters
 {
-    class BoardFormatter : IFormatter
+    public class BoardFormatter : IFormatter
     {
         //--------------CONSTANT VALUES------------------
         private const char MIN_VALUE = '0';

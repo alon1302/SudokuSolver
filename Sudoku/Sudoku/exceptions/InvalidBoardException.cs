@@ -10,7 +10,7 @@ namespace Sudoku.exceptions
     /// <summary>
     /// custom exception that represent state of invalid board
     /// </summary>
-    class InvalidBoardException : Exception
+    public class InvalidBoardException : Exception
     {
         /// <summary>
         /// Construtctor that receives a massege for the exception

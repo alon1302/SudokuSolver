@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Sudoku.writers
 {
-    class ConsoleWriter : IWriter
+    public class ConsoleWriter : IWriter
     {
         private IFormatter _formatter; // any formatter
 

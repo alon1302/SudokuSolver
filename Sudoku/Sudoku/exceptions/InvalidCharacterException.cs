@@ -10,7 +10,7 @@ namespace Sudoku.exceptions
     /// <summary>
     /// custom exception that represent state of invalid character in the input
     /// </summary>
-    class InvalidCharacterException : Exception
+    public class InvalidCharacterException : Exception
     {
         /// <summary>
         /// Construtctor that receives a massege for the exception

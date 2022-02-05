@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Sudoku.readers
 {
-    class ConsoleReader : IReader
+    public class ConsoleReader : IReader
     {
         /// <summary>
         /// function that read user input from the console

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Sudoku.writers
 {
-    class ErrorWriter : IWriter
+    public class ErrorWriter : IWriter
     {
         /// <summary>
         /// function that receives string of some data and prints it to the console in ERROR format

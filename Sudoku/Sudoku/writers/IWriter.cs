@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Sudoku.writers
 {
-    interface IWriter
+    public interface IWriter
     {
         /// <summary>
         /// function that receives some data and write it to any destenation

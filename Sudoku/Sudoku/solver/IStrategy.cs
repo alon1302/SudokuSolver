@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Sudoku.solver
 {
-    interface IStrategy
+    public interface IStrategy
     {
         /// <summary>
         /// function that receives a board and tries to solve it according to the strategy

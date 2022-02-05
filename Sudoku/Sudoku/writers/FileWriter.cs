@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Sudoku.writers
 {
-    class FileWriter : IWriter
+    public class FileWriter : IWriter
     {
         private string _filePath; // file path
 

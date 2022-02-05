@@ -10,7 +10,7 @@ namespace Sudoku.exceptions
     /// <summary>
     /// custom exception represent some error in the OpenFileDialog
     /// </summary>
-    class FileDialogException : Exception
+    public class FileDialogException : Exception
     {
     }
 }

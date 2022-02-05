@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Sudoku.solver
 {
-    class Solver
+    public class Solver
     {
         private const int ERROR_RETURN_VALUE = -1; // indication of error 
 

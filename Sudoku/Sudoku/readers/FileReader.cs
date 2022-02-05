@@ -6,7 +6,7 @@ using Sudoku.exceptions;
 
 namespace Sudoku.readers
 {
-    class FileReader : IReader
+    public class FileReader : IReader
     {
         private string _filePath; // input file path
 

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Sudoku.Validators
 {
-    interface Ivalidator
+    public interface Ivalidator
     {
         /// <summary>
         /// check validation

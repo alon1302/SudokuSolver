@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Sudoku.Validators
 {
-    class BoardValidator : Ivalidator
+    public class BoardValidator : Ivalidator
     {
         private SudokuBoard _board; // sudoku board
 

@@ -10,7 +10,7 @@ namespace Sudoku.exceptions
     /// <summary>
     /// custom exception represent unsupported file type
     /// </summary>
-    class FileTypeException : Exception
+    public class FileTypeException : Exception
     {
         public FileTypeException(string massege) : base(massege)
         {
