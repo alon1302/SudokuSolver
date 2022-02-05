@@ -16,3 +16,5 @@ explanation about sudoku format string:
 2. your board size determined by the length of the string you have entered (square root of the length)
 3. The characters that the board can contain are the char '0' to represent an empty cell and all the characters from '1' - '9' and so on in the ascii values table until your sudoku board size.
 
+this solver based on some human sudoku solving strategies like: naked single, hidden single and intersections
+
