@@ -47,6 +47,11 @@ namespace Sudoku.formatters
             return formattedBoard;
         }
 
+        /// <summary>
+        /// function that built a string for the current value and returns it
+        /// </summary>
+        /// <param name="value">the current value</param>
+        /// <returns></returns>
         private string GetCurrentCellString(int value)
         {
             string returnVal = "";

@@ -183,10 +183,11 @@ namespace Sudoku.Validators
             double inputSize = _boardRepresentation.Length;
             if (inputSize == 0)
             {
-                throw new InvalidBoardSizeException("the board can't be empty\n");
+                throw new InvalidBoardSizeException("the board size can't be 0\n");
             }
             double rowSize = Math.Sqrt(inputSize);
-            if (Math.Floor(rowSize) != rowSize)
+            double boxSize = Math.Sqrt(rowSize);
+            if (Math.Floor(boxSize) != boxSize)
             {
                 throw new InvalidBoardSizeException("invalid board size\n");
             }

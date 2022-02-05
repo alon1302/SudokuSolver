@@ -12,6 +12,11 @@ namespace Sudoku.exceptions
     /// </summary>
     public class FileTypeException : Exception
     {
+        /// <summary>
+        /// Construtctor that receives a massege for the exception
+        /// and passing it to the base class
+        /// </summary>
+        /// <param name="message">exception massege</param>
         public FileTypeException(string massege) : base(massege)
         {
         }

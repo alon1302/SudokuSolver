@@ -5,7 +5,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{532A5C8A-34BE-4620-ADBF-2BB391D4DF91}</ProjectGuid>
+    <ProjectGuid>{49F4DA6F-EC2D-41A0-B097-E64F960BE5C6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SudokuTest</RootNamespace>
@@ -49,8 +49,10 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="SolverTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnsolveableTest.cs" />
+    <Compile Include="ValidationTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
